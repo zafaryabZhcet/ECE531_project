@@ -22,7 +22,7 @@ static uint32_t debug=1;
 
 static int framebuffer_initialized=0;
 
-static struct frame_buffer_info_type current_fb;
+struct frame_buffer_info_type current_fb;
 static unsigned char offscreen[2048*2048*3];
 
 // struct frame_buffer_info_type {
