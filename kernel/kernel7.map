@@ -1,0 +1,702 @@
+Archive member included to satisfy reference by file (symbol)
+
+boot/boot-armv7.a(boot-armv7.o)
+                              (_start)
+boot/boot-armv7.a(hardware_detect.armv7.o)
+                              kernel_main.armv7.o (hardware_detect)
+boot/boot-armv7.a(device_tree.armv7.o)
+                              boot/boot-armv7.a(hardware_detect.armv7.o) (devicetree_setup)
+interrupts/interrupts-armv7.a(interrupts.armv7.o)
+                              kernel_main.armv7.o (platform_irq_enable)
+interrupts/interrupts-armv7.a(irq_handler.armv7.o)
+                              boot/boot-armv7.a(boot-armv7.o) (interrupt_handler)
+interrupts/interrupts-armv7.a(gic-400.armv7.o)
+                              interrupts/interrupts-armv7.a(interrupts.armv7.o) (gic400_init)
+syscalls/syscalls-armv7.a(swi_handler.armv7.o)
+                              boot/boot-armv7.a(boot-armv7.o) (swi_handler)
+syscalls/syscalls-armv7.a(syscalls.armv7.o)
+                              syscalls/syscalls-armv7.a(swi_handler.armv7.o) (swi_handler_c)
+syscalls/syscalls-armv7.a(nanosleep.armv7.o)
+                              syscalls/syscalls-armv7.a(syscalls.armv7.o) (nanosleep)
+syscalls/syscalls-armv7.a(sysinfo.armv7.o)
+                              syscalls/syscalls-armv7.a(syscalls.armv7.o) (sysinfo)
+syscalls/syscalls-armv7.a(times.armv7.o)
+                              syscalls/syscalls-armv7.a(syscalls.armv7.o) (times)
+syscalls/syscalls-armv7.a(uname.armv7.o)
+                              syscalls/syscalls-armv7.a(syscalls.armv7.o) (uname)
+fs/files.armv7.o              syscalls/syscalls-armv7.a(syscalls.armv7.o) (close)
+fs/romfs/romfs-armv7.a(romfs.armv7.o)
+                              fs/files.armv7.o (romfs_stat)
+drivers/drivers.armv7.o       kernel_main.armv7.o (drivers_init_all)
+drivers/bcm2835/bcm2835.armv7.a(bcm2835_io.armv7.o)
+                              interrupts/interrupts-armv7.a(interrupts.armv7.o) (bcm2835_write)
+drivers/block/block.armv7.a(ramdisk.armv7.o)
+                              fs/romfs/romfs-armv7.a(romfs.armv7.o) (ramdisk_read)
+drivers/console/console.armv7.a(console_io.armv7.o)
+                              fs/files.armv7.o (console_write)
+drivers/framebuffer/framebuffer.armv7.a(framebuffer.armv7.o)
+                              drivers/drivers.armv7.o (framebuffer_init)
+drivers/framebuffer/framebuffer.armv7.a(framebuffer_console.armv7.o)
+                              syscalls/syscalls-armv7.a(syscalls.armv7.o) (framebuffer_console_setfont)
+drivers/led/led.armv7.a(led.armv7.o)
+                              drivers/drivers.armv7.o (led_init)
+drivers/serial/serial.armv7.a(serial.armv7.o)
+                              kernel_main.armv7.o (serial_init)
+drivers/timer/timer.armv7.a(sp804_timer.armv7.o)
+                              drivers/drivers.armv7.o (timer_init)
+drivers/firmware/firmware.armv7.a(mailbox.armv7.o)
+                              drivers/framebuffer/framebuffer.armv7.a(framebuffer.armv7.o) (mailbox_write)
+drivers/gpio/gpio.armv7.a(gpio.armv7.o)
+                              drivers/led/led.armv7.a(led.armv7.o) (gpio_request)
+drivers/serial/serial.armv7.a(pl011_uart.armv7.o)
+                              drivers/serial/serial.armv7.a(serial.armv7.o) (pl011_uart_init)
+drivers/serial/serial.armv7.a(mini_uart.armv7.o)
+                              drivers/serial/serial.armv7.a(serial.armv7.o) (mini_uart_init)
+memory/memory-armv7.a(memory.armv7.o)
+                              syscalls/syscalls-armv7.a(sysinfo.armv7.o) (memory_total_free)
+memory/memory-armv7.a(armv7-mmu.o)
+                              memory/memory-armv7.a(memory.armv7.o) (enable_mmu)
+processes/processes-armv7.a(process.armv7.o)
+                              syscalls/syscalls-armv7.a(sysinfo.armv7.o) (process_get_totals)
+processes/processes-armv7.a(exec.armv7.o)
+                              syscalls/syscalls-armv7.a(syscalls.armv7.o) (execve)
+processes/processes-armv7.a(exit.armv7.o)
+                              interrupts/interrupts-armv7.a(interrupts.armv7.o) (exit)
+processes/processes-armv7.a(idle_task.armv7.o)
+                              kernel_main.armv7.o (create_idle_task)
+processes/processes-armv7.a(scheduler.armv7.o)
+                              interrupts/interrupts-armv7.a(interrupts.armv7.o) (schedule)
+processes/processes-armv7.a(userspace.armv7.o)
+                              kernel_main.armv7.o (start_userspace)
+processes/processes-armv7.a(vfork.armv7.o)
+                              syscalls/syscalls-armv7.a(syscalls.armv7.o) (vfork)
+processes/processes-armv7.a(waitpid.armv7.o)
+                              processes/processes-armv7.a(exit.armv7.o) (waitpid_done)
+processes/processes-armv7.a(waitqueue.armv7.o)
+                              drivers/console/console.armv7.a(console_io.armv7.o) (wait_queue_add)
+debug/debug-armv7.a(panic.armv7.o)
+                              drivers/console/console.armv7.a(console_io.armv7.o) (dump_saved_user_state)
+time/time-armv7.a(time.armv7.o)
+                              syscalls/syscalls-armv7.a(syscalls.armv7.o) (time_since_boot)
+lib/lib-armv7.a(memcpy.armv7.o)
+                              boot/boot-armv7.a(device_tree.armv7.o) (memcpy)
+lib/lib-armv7.a(memset.armv7.o)
+                              syscalls/syscalls-armv7.a(sysinfo.armv7.o) (memset)
+lib/lib-armv7.a(printk.armv7.o)
+                              kernel_main.armv7.o (printk)
+lib/lib-armv7.a(string.armv7.o)
+                              boot/boot-armv7.a(device_tree.armv7.o) (strncmp)
+
+Memory Configuration
+
+Name             Origin             Length             Attributes
+*default*        0x00000000         0xffffffff
+
+Linker script and memory map
+
+                0x00008000                        . = 0x8000
+                0x00008000                        __start = .
+                0x00008000                        __text_start = .
+
+.text           0x00008000     0x67b8
+ *(.text.boot)
+ .text.boot     0x00008000      0x11c boot/boot-armv7.a(boot-armv7.o)
+                0x00008000                _start
+ *(.text)
+ .text          0x0000811c      0x1d4 kernel_main.armv7.o
+                0x0000811c                print_boot_message
+                0x000081e8                kernel_main
+ .text          0x000082f0        0x0 boot/boot-armv7.a(boot-armv7.o)
+ .text          0x000082f0      0x6a0 boot/boot-armv7.a(hardware_detect.armv7.o)
+                0x000082f0                hardware_detect
+                0x000085e4                hardware_print_model
+                0x000087e4                hardware_print_commandline
+                0x00008838                hardware_get_type
+                0x00008848                hardware_get_memory
+                0x00008898                hardware_setup_vars
+ .text          0x00008990      0x9dc boot/boot-armv7.a(device_tree.armv7.o)
+                0x00008ccc                devicetree_setup
+                0x00008d80                devicetree_find_reserved
+                0x00008ee0                devicetree_find_string
+                0x00008f48                devicetree_find_int
+                0x00008fb0                devicetree_find_int64
+                0x00009020                devicetree_get_memory
+ .text          0x0000936c      0x32c interrupts/interrupts-armv7.a(interrupts.armv7.o)
+                0x0000936c                platform_irq_enable
+                0x000093ac                irq_enable
+                0x00009414                irq_disable
+                0x0000947c                interrupt_handler_c
+                0x0000956c                fiq_handler
+                0x00009584                data_abort_handler
+                0x0000960c                prefetch_abort_handler
+                0x0000967c                undef_handler
+ .text          0x00009698       0x40 interrupts/interrupts-armv7.a(irq_handler.armv7.o)
+                0x00009698                interrupt_handler
+ .text          0x000096d8      0x11c interrupts/interrupts-armv7.a(gic-400.armv7.o)
+                0x000096d8                gic400_init
+ .text          0x000097f4       0x40 syscalls/syscalls-armv7.a(swi_handler.armv7.o)
+                0x000097f4                swi_handler
+ .text          0x00009834      0x61c syscalls/syscalls-armv7.a(syscalls.armv7.o)
+                0x00009834                swi_handler_c
+ .text          0x00009e50       0x5c syscalls/syscalls-armv7.a(nanosleep.armv7.o)
+                0x00009e50                nanosleep
+ .text          0x00009eac       0x7c syscalls/syscalls-armv7.a(sysinfo.armv7.o)
+                0x00009eac                sysinfo
+ .text          0x00009f28       0x2c syscalls/syscalls-armv7.a(times.armv7.o)
+                0x00009f28                times
+ .text          0x00009f54       0x88 syscalls/syscalls-armv7.a(uname.armv7.o)
+                0x00009f54                uname
+ .text          0x00009fdc      0x3c4 fs/files.armv7.o
+                0x00009fdc                fd_free
+                0x00009fe4                fd_allocate
+                0x0000a03c                get_inode
+                0x0000a0e8                close
+                0x0000a0f0                open
+                0x0000a110                read
+                0x0000a1a0                write
+                0x0000a1d8                stat
+                0x0000a200                mount
+                0x0000a248                fd_table_init
+                0x0000a27c                getdents
+                0x0000a2ec                chdir
+                0x0000a34c                getcwd
+                0x0000a394                statfs
+ .text          0x0000a3a0      0x640 fs/romfs/romfs-armv7.a(romfs.armv7.o)
+                0x0000a3a0                romfs_stat
+                0x0000a4e0                romfs_get_inode
+                0x0000a614                romfs_mount
+                0x0000a6ec                romfs_statfs
+                0x0000a7a0                romfs_read_file
+                0x0000a81c                romfs_getdents
+ .text          0x0000a9e0       0x28 drivers/drivers.armv7.o
+                0x0000a9e0                drivers_init_all
+ .text          0x0000aa08       0x30 drivers/bcm2835/bcm2835.armv7.a(bcm2835_io.armv7.o)
+                0x0000aa08                bcm2835_write
+                0x0000aa20                bcm2835_read
+ .text          0x0000aa38       0x88 drivers/block/block.armv7.a(ramdisk.armv7.o)
+                0x0000aa38                ramdisk_read
+                0x0000aa90                ramdisk_init
+ .text          0x0000aac0      0x14c drivers/console/console.armv7.a(console_io.armv7.o)
+                0x0000aac0                console_insert_char
+                0x0000ab4c                console_write
+                0x0000ab6c                console_read
+ .text          0x0000ac0c      0x4bc drivers/framebuffer/framebuffer.armv7.a(framebuffer.armv7.o)
+                0x0000ac68                framebuffer_ready
+                0x0000ac78                framebuffer_init
+                0x0000ae0c                framebuffer_hline
+                0x0000ae80                framebuffer_vline
+                0x0000aef0                framebuffer_clear_screen
+                0x0000af8c                framebuffer_putpixel
+                0x0000afd0                framebuffer_push
+                0x0000b004                framebuffer_gradient
+                0x0000b038                framebuffer_load
+ .text          0x0000b0c8      0xa70 drivers/framebuffer/framebuffer.armv7.a(framebuffer_console.armv7.o)
+                0x0000b190                framebuffer_console_putchar
+                0x0000b1c0                framebuffer_console_clear
+                0x0000b220                framebuffer_console_home
+                0x0000b238                framebuffer_console_push
+                0x0000b304                framebuffer_console_setfont
+                0x0000b33c                framebuffer_console_write
+                0x0000ba98                framebuffer_console_val
+                0x0000bac0                framebuffer_console_init
+ .text          0x0000bb38      0x150 drivers/led/led.armv7.a(led.armv7.o)
+                0x0000bb38                led_init
+                0x0000bc04                led_on
+                0x0000bc48                led_off
+ .text          0x0000bc88       0xe4 drivers/serial/serial.armv7.a(serial.armv7.o)
+                0x0000bc88                serial_init
+                0x0000bce4                serial_write
+                0x0000bd4c                serial_interrupt_handler
+                0x0000bd5c                serial_enable_interrupts
+ .text          0x0000bd6c      0x124 drivers/timer/timer.armv7.a(sp804_timer.armv7.o)
+                0x0000bd6c                timer_init
+                0x0000bdbc                timer_interrupt_handler
+                0x0000be58                timer_sleep_until
+ .text          0x0000be90      0x128 drivers/firmware/firmware.armv7.a(mailbox.armv7.o)
+                0x0000be90                mailbox_write
+                0x0000bf28                mailbox_read
+ .text          0x0000bfb8      0x3c8 drivers/gpio/gpio.armv7.a(gpio.armv7.o)
+                0x0000bfb8                gpio_request
+                0x0000c054                gpio_free
+                0x0000c0c0                gpio_direction_input
+                0x0000c138                gpio_direction_output
+                0x0000c1b4                gpio_to_irq
+                0x0000c1bc                gpio_get_value
+                0x0000c21c                gpio_set_value
+                0x0000c2b8                gpio_set_falling
+                0x0000c324                gpio_clear_interrupt
+ .text          0x0000c380      0x440 drivers/serial/serial.armv7.a(pl011_uart.armv7.o)
+                0x0000c380                pl011_uart_putc
+                0x0000c3b4                pl011_uart_getc
+                0x0000c3e0                pl011_uart_getc_noblock
+                0x0000c414                pl011_uart_enable_interrupts
+                0x0000c498                pl011_uart_interrupt_handler
+                0x0000c4ec                pl011_uart_init
+                0x0000c650                pl011_uart_putc_extra
+                0x0000c684                pl011_write
+                0x0000c6dc                old_pl011_uart_init
+ .text          0x0000c7c0      0x2b0 drivers/serial/serial.armv7.a(mini_uart.armv7.o)
+                0x0000c7c0                mini_uart_putc
+                0x0000c7f4                mini_uart_getc
+                0x0000c820                mini_uart_getc_noblock
+                0x0000c854                mini_uart_enable_interrupts
+                0x0000c8d8                mini_uart_interrupt_handler
+                0x0000c92c                mini_uart_init
+ .text          0x0000ca70      0x330 memory/memory-armv7.a(memory.armv7.o)
+                0x0000ca70                memory_total_free
+                0x0000cac4                memory_allocate
+                0x0000cbb4                memory_free
+                0x0000cc2c                memory_get_total
+                0x0000cc3c                memory_hierarchy_init
+ .text          0x0000cda0      0x378 memory/memory-armv7.a(armv7-mmu.o)
+                0x0000cda0                disable_l1_dcache
+                0x0000cdb0                invalidate_l1_dcache
+                0x0000ce48                enable_mmu
+                0x0000d0a8                enable_l1_dcache
+                0x0000d0b8                enable_l1_icache
+                0x0000d0bc                disable_l1_icache
+                0x0000d0c0                enable_branch_predictor
+                0x0000d0c4                disable_branch_predictor
+                0x0000d0c8                l1_cache_detect
+                0x0000d0cc                flush_icache
+                0x0000d0e4                flush_dcache
+ .text          0x0000d118      0x308 processes/processes-armv7.a(process.armv7.o)
+                0x0000d118                process_get_totals
+                0x0000d158                process_lookup
+                0x0000d18c                process_lookup_child
+                0x0000d1c8                process_create
+                0x0000d2f8                process_destroy
+                0x0000d3b8                process_save
+                0x0000d3dc                process_switch
+ .text          0x0000d420      0x384 processes/processes-armv7.a(exec.armv7.o)
+                0x0000d420                execve
+ .text          0x0000d7a4       0x28 processes/processes-armv7.a(exit.armv7.o)
+                0x0000d7a4                exit
+ .text          0x0000d7cc       0xe4 processes/processes-armv7.a(idle_task.armv7.o)
+                0x0000d804                create_idle_task
+ .text          0x0000d8b0       0xc4 processes/processes-armv7.a(scheduler.armv7.o)
+                0x0000d8b0                schedule
+                0x0000d964                sched_yield
+ .text          0x0000d974       0xd0 processes/processes-armv7.a(userspace.armv7.o)
+                0x0000d974                enter_userspace
+                0x0000d9a4                start_userspace
+ .text          0x0000da44       0xa4 processes/processes-armv7.a(vfork.armv7.o)
+                0x0000da44                vfork
+ .text          0x0000dae8       0xf4 processes/processes-armv7.a(waitpid.armv7.o)
+                0x0000dae8                waitpid_done
+                0x0000db00                waitpid
+ .text          0x0000dbdc       0x8c processes/processes-armv7.a(waitqueue.armv7.o)
+                0x0000dbdc                wait_queue_add
+                0x0000dc28                wait_queue_wake
+ .text          0x0000dc68      0x208 debug/debug-armv7.a(panic.armv7.o)
+                0x0000dc68                dump_saved_user_state
+                0x0000dd00                dump_saved_kernel_state
+                0x0000dd84                dump_kernel_regs
+                0x0000de14                dump_memory
+ .text          0x0000de70       0x60 time/time-armv7.a(time.armv7.o)
+                0x0000de70                time_since_boot
+                0x0000de84                ticks_since_boot
+                0x0000de94                clock_gettime
+ .text          0x0000ded0       0x78 lib/lib-armv7.a(memcpy.armv7.o)
+                0x0000ded0                memcpy
+                0x0000def8                memcpy_4byte
+ .text          0x0000df48      0x154 lib/lib-armv7.a(memset.armv7.o)
+                0x0000df48                memset_byte
+                0x0000df70                memset_4byte
+                0x0000dffc                memset
+ .text          0x0000e09c      0x4f4 lib/lib-armv7.a(printk.armv7.o)
+                0x0000e09c                vsprintf
+                0x0000e4d0                printk
+                0x0000e514                serial_printk
+                0x0000e558                sprintf
+ .text          0x0000e590      0x228 lib/lib-armv7.a(string.armv7.o)
+                0x0000e590                strncmp
+                0x0000e5d4                memcmp
+                0x0000e61c                strncpy
+                0x0000e67c                strlcpy
+                0x0000e6ec                strncat
+                0x0000e784                strlen
+
+.glue_7         0x0000e7b8        0x0
+ .glue_7        0x0000e7b8        0x0 linker stubs
+
+.glue_7t        0x0000e7b8        0x0
+ .glue_7t       0x0000e7b8        0x0 linker stubs
+
+.vfp11_veneer   0x0000e7b8        0x0
+ .vfp11_veneer  0x0000e7b8        0x0 linker stubs
+
+.v4_bx          0x0000e7b8        0x0
+ .v4_bx         0x0000e7b8        0x0 linker stubs
+
+.iplt           0x0000e7b8        0x0
+ .iplt          0x0000e7b8        0x0 kernel_main.armv7.o
+                0x0000f000                        . = ALIGN (0x1000)
+                0x0000f000                        __text_end = .
+                0x0000f000                        __rodata_start = .
+
+.rodata         0x0000f000       0x40
+ *(.rodata)
+ .rodata        0x0000f000       0x40 drivers/framebuffer/framebuffer.armv7.a(framebuffer_console.armv7.o)
+
+.rodata.str1.4  0x0000f040     0x136c
+ .rodata.str1.4
+                0x0000f040      0x1de kernel_main.armv7.o
+ *fill*         0x0000f21e        0x2 
+ .rodata.str1.4
+                0x0000f220      0x16a boot/boot-armv7.a(hardware_detect.armv7.o)
+                                0x172 (size before relaxing)
+ *fill*         0x0000f38a        0x2 
+ .rodata.str1.4
+                0x0000f38c      0x359 boot/boot-armv7.a(device_tree.armv7.o)
+ *fill*         0x0000f6e5        0x3 
+ .rodata.str1.4
+                0x0000f6e8      0x123 interrupts/interrupts-armv7.a(interrupts.armv7.o)
+ *fill*         0x0000f80b        0x1 
+ .rodata.str1.4
+                0x0000f80c      0x124 syscalls/syscalls-armv7.a(syscalls.armv7.o)
+ .rodata.str1.4
+                0x0000f930       0x39 syscalls/syscalls-armv7.a(uname.armv7.o)
+                                 0x3d (size before relaxing)
+ *fill*         0x0000f969        0x3 
+ .rodata.str1.4
+                0x0000f96c       0x8b fs/files.armv7.o
+                                 0x93 (size before relaxing)
+ *fill*         0x0000f9f7        0x1 
+ .rodata.str1.4
+                0x0000f9f8       0x59 fs/romfs/romfs-armv7.a(romfs.armv7.o)
+ *fill*         0x0000fa51        0x3 
+ .rodata.str1.4
+                0x0000fa54       0x57 drivers/block/block.armv7.a(ramdisk.armv7.o)
+ *fill*         0x0000faab        0x1 
+ .rodata.str1.4
+                0x0000faac      0x105 drivers/framebuffer/framebuffer.armv7.a(framebuffer.armv7.o)
+ *fill*         0x0000fbb1        0x3 
+ .rodata.str1.4
+                0x0000fbb4       0x62 drivers/framebuffer/framebuffer.armv7.a(framebuffer_console.armv7.o)
+ *fill*         0x0000fc16        0x2 
+ .rodata.str1.4
+                0x0000fc18       0x56 drivers/led/led.armv7.a(led.armv7.o)
+ *fill*         0x0000fc6e        0x2 
+ .rodata.str1.4
+                0x0000fc70      0x11d drivers/firmware/firmware.armv7.a(mailbox.armv7.o)
+ *fill*         0x0000fd8d        0x3 
+ .rodata.str1.4
+                0x0000fd90       0x7b drivers/gpio/gpio.armv7.a(gpio.armv7.o)
+ *fill*         0x0000fe0b        0x1 
+ .rodata.str1.4
+                0x0000fe0c       0x40 drivers/serial/serial.armv7.a(pl011_uart.armv7.o)
+ .rodata.str1.4
+                0x0000fe4c       0x40 drivers/serial/serial.armv7.a(mini_uart.armv7.o)
+ .rodata.str1.4
+                0x0000fe4c      0x124 memory/memory-armv7.a(memory.armv7.o)
+ .rodata.str1.4
+                0x0000ff70      0x19f memory/memory-armv7.a(armv7-mmu.o)
+ *fill*         0x0001010f        0x1 
+ .rodata.str1.4
+                0x00010110       0x8d processes/processes-armv7.a(process.armv7.o)
+ *fill*         0x0001019d        0x3 
+ .rodata.str1.4
+                0x000101a0       0x57 processes/processes-armv7.a(exec.armv7.o)
+ *fill*         0x000101f7        0x1 
+ .rodata.str1.4
+                0x000101f8       0x39 processes/processes-armv7.a(idle_task.armv7.o)
+ *fill*         0x00010231        0x3 
+ .rodata.str1.4
+                0x00010234       0x32 processes/processes-armv7.a(userspace.armv7.o)
+                                 0x36 (size before relaxing)
+ *fill*         0x00010266        0x2 
+ .rodata.str1.4
+                0x00010268       0x17 processes/processes-armv7.a(vfork.armv7.o)
+ *fill*         0x0001027f        0x1 
+ .rodata.str1.4
+                0x00010280       0x2d processes/processes-armv7.a(waitpid.armv7.o)
+ *fill*         0x000102ad        0x3 
+ .rodata.str1.4
+                0x000102b0       0xfc debug/debug-armv7.a(panic.armv7.o)
+                                0x100 (size before relaxing)
+
+.rel.dyn        0x000103ac        0x0
+ .rel.iplt      0x000103ac        0x0 kernel_main.armv7.o
+                0x00011000                        . = ALIGN (0x1000)
+                0x00011000                        __rodata_end = .
+                0x00011000                        __data_start = .
+
+.data           0x00011000    0x21424
+ *(.data)
+ .data          0x00011000    0x20400 kernel_main.armv7.o
+                0x00011000                initrd_image
+ .data          0x00031400        0x0 boot/boot-armv7.a(boot-armv7.o)
+ .data          0x00031400        0x4 boot/boot-armv7.a(hardware_detect.armv7.o)
+                0x00031400                hardware_type
+ .data          0x00031404        0x0 boot/boot-armv7.a(device_tree.armv7.o)
+ .data          0x00031404        0x0 interrupts/interrupts-armv7.a(interrupts.armv7.o)
+ .data          0x00031404        0x0 interrupts/interrupts-armv7.a(irq_handler.armv7.o)
+ .data          0x00031404        0x0 interrupts/interrupts-armv7.a(gic-400.armv7.o)
+ .data          0x00031404        0x0 syscalls/syscalls-armv7.a(swi_handler.armv7.o)
+ .data          0x00031404        0x0 syscalls/syscalls-armv7.a(syscalls.armv7.o)
+ .data          0x00031404        0x0 syscalls/syscalls-armv7.a(nanosleep.armv7.o)
+ .data          0x00031404        0x0 syscalls/syscalls-armv7.a(sysinfo.armv7.o)
+ .data          0x00031404        0x0 syscalls/syscalls-armv7.a(times.armv7.o)
+ .data          0x00031404        0x0 syscalls/syscalls-armv7.a(uname.armv7.o)
+ .data          0x00031404        0x0 fs/files.armv7.o
+ .data          0x00031404        0x0 fs/romfs/romfs-armv7.a(romfs.armv7.o)
+ .data          0x00031404        0x0 drivers/drivers.armv7.o
+ .data          0x00031404        0x0 drivers/bcm2835/bcm2835.armv7.a(bcm2835_io.armv7.o)
+ .data          0x00031404        0x0 drivers/block/block.armv7.a(ramdisk.armv7.o)
+ .data          0x00031404        0x0 drivers/console/console.armv7.a(console_io.armv7.o)
+ .data          0x00031404        0x0 drivers/framebuffer/framebuffer.armv7.a(framebuffer.armv7.o)
+ .data          0x00031404     0x1010 drivers/framebuffer/framebuffer.armv7.a(framebuffer_console.armv7.o)
+                0x00031414                default_font
+ .data          0x00032414        0x8 drivers/led/led.armv7.a(led.armv7.o)
+ .data          0x0003241c        0x0 drivers/serial/serial.armv7.a(serial.armv7.o)
+ .data          0x0003241c        0x4 drivers/timer/timer.armv7.a(sp804_timer.armv7.o)
+                0x0003241c                blinking_enabled
+ .data          0x00032420        0x0 drivers/firmware/firmware.armv7.a(mailbox.armv7.o)
+ .data          0x00032420        0x0 drivers/gpio/gpio.armv7.a(gpio.armv7.o)
+ .data          0x00032420        0x0 drivers/serial/serial.armv7.a(pl011_uart.armv7.o)
+ .data          0x00032420        0x0 drivers/serial/serial.armv7.a(mini_uart.armv7.o)
+ .data          0x00032420        0x0 memory/memory-armv7.a(memory.armv7.o)
+ .data          0x00032420        0x0 memory/memory-armv7.a(armv7-mmu.o)
+ .data          0x00032420        0x0 processes/processes-armv7.a(process.armv7.o)
+ .data          0x00032420        0x0 processes/processes-armv7.a(exec.armv7.o)
+ .data          0x00032420        0x0 processes/processes-armv7.a(exit.armv7.o)
+ .data          0x00032420        0x0 processes/processes-armv7.a(idle_task.armv7.o)
+ .data          0x00032420        0x4 processes/processes-armv7.a(scheduler.armv7.o)
+                0x00032420                scheduling_enabled
+ .data          0x00032424        0x0 processes/processes-armv7.a(userspace.armv7.o)
+ .data          0x00032424        0x0 processes/processes-armv7.a(vfork.armv7.o)
+ .data          0x00032424        0x0 processes/processes-armv7.a(waitpid.armv7.o)
+ .data          0x00032424        0x0 processes/processes-armv7.a(waitqueue.armv7.o)
+ .data          0x00032424        0x0 debug/debug-armv7.a(panic.armv7.o)
+ .data          0x00032424        0x0 time/time-armv7.a(time.armv7.o)
+ .data          0x00032424        0x0 lib/lib-armv7.a(memcpy.armv7.o)
+ .data          0x00032424        0x0 lib/lib-armv7.a(memset.armv7.o)
+ .data          0x00032424        0x0 lib/lib-armv7.a(printk.armv7.o)
+ .data          0x00032424        0x0 lib/lib-armv7.a(string.armv7.o)
+
+.igot.plt       0x00032424        0x0
+ .igot.plt      0x00032424        0x0 kernel_main.armv7.o
+                0x00033000                        . = ALIGN (0x1000)
+                0x00033000                        __data_end = .
+                0x00033000                        __bss_start = .
+
+.bss            0x00034000   0xc31008
+                0x00034000                        bss = .
+ *(.bss)
+ .bss           0x00034000        0x0 kernel_main.armv7.o
+ .bss           0x00034000        0x0 boot/boot-armv7.a(boot-armv7.o)
+ .bss           0x00034000      0x410 boot/boot-armv7.a(hardware_detect.armv7.o)
+                0x00034408                io_base
+                0x0003440c                act_led_gpio
+ .bss           0x00034410       0x2c boot/boot-armv7.a(device_tree.armv7.o)
+                0x00034410                device_tree
+ .bss           0x0003443c        0x0 interrupts/interrupts-armv7.a(interrupts.armv7.o)
+ .bss           0x0003443c        0x0 interrupts/interrupts-armv7.a(irq_handler.armv7.o)
+ .bss           0x0003443c        0x4 interrupts/interrupts-armv7.a(gic-400.armv7.o)
+                0x0003443c                num_interrupts
+ .bss           0x00034440        0x0 syscalls/syscalls-armv7.a(swi_handler.armv7.o)
+ .bss           0x00034440        0x0 syscalls/syscalls-armv7.a(syscalls.armv7.o)
+ .bss           0x00034440        0x0 syscalls/syscalls-armv7.a(nanosleep.armv7.o)
+ .bss           0x00034440        0x0 syscalls/syscalls-armv7.a(sysinfo.armv7.o)
+ .bss           0x00034440        0x0 syscalls/syscalls-armv7.a(times.armv7.o)
+ .bss           0x00034440        0x0 syscalls/syscalls-armv7.a(uname.armv7.o)
+ .bss           0x00034440      0x1c4 fs/files.armv7.o
+                0x00034440                fd_table
+                0x000345c4                superblock_table
+ .bss           0x00034604        0x0 fs/romfs/romfs-armv7.a(romfs.armv7.o)
+ .bss           0x00034604        0x0 drivers/drivers.armv7.o
+ .bss           0x00034604        0x0 drivers/bcm2835/bcm2835.armv7.a(bcm2835_io.armv7.o)
+ .bss           0x00034604        0xc drivers/block/block.armv7.a(ramdisk.armv7.o)
+                0x00034604                ramdisk_info
+ .bss           0x00034610      0x114 drivers/console/console.armv7.a(console_io.armv7.o)
+                0x00034718                console_wait_queue
+                0x0003471c                console_read_mutex
+                0x00034720                console_write_mutex
+ .bss           0x00034724   0xc0002c drivers/framebuffer/framebuffer.armv7.a(framebuffer.armv7.o)
+ .bss           0x00c34750     0x1624 drivers/framebuffer/framebuffer.armv7.a(framebuffer_console.armv7.o)
+ .bss           0x00c35d74        0x4 drivers/led/led.armv7.a(led.armv7.o)
+ .bss           0x00c35d78       0x28 drivers/serial/serial.armv7.a(serial.armv7.o)
+ .bss           0x00c35da0       0x10 drivers/timer/timer.armv7.a(sp804_timer.armv7.o)
+                0x00c35da0                tick_counter
+ .bss           0x00c35db0        0x0 drivers/firmware/firmware.armv7.a(mailbox.armv7.o)
+ .bss           0x00c35db0        0x8 drivers/gpio/gpio.armv7.a(gpio.armv7.o)
+ .bss           0x00c35db8        0x0 drivers/serial/serial.armv7.a(pl011_uart.armv7.o)
+ .bss           0x00c35db8        0x0 drivers/serial/serial.armv7.a(mini_uart.armv7.o)
+ .bss           0x00c35db8     0x8008 memory/memory-armv7.a(memory.armv7.o)
+ *fill*         0x00c3ddc0     0x2240 
+ .bss           0x00c40000     0x4000 memory/memory-armv7.a(armv7-mmu.o)
+                0x00c40000                page_table
+ .bss           0x00c44000    0x21004 processes/processes-armv7.a(process.armv7.o)
+                0x00c44000                proc_first
+                0x00c44008                current_process
+                0x00c65000                userspace_started
+ .bss           0x00c65004        0x0 processes/processes-armv7.a(exec.armv7.o)
+ .bss           0x00c65004        0x0 processes/processes-armv7.a(exit.armv7.o)
+ .bss           0x00c65004        0x0 processes/processes-armv7.a(idle_task.armv7.o)
+ .bss           0x00c65004        0x0 processes/processes-armv7.a(scheduler.armv7.o)
+ .bss           0x00c65004        0x0 processes/processes-armv7.a(userspace.armv7.o)
+ .bss           0x00c65004        0x0 processes/processes-armv7.a(vfork.armv7.o)
+ .bss           0x00c65004        0x4 processes/processes-armv7.a(waitpid.armv7.o)
+                0x00c65004                waitpid_wait_queue
+ .bss           0x00c65008        0x0 processes/processes-armv7.a(waitqueue.armv7.o)
+ .bss           0x00c65008        0x0 debug/debug-armv7.a(panic.armv7.o)
+ .bss           0x00c65008        0x0 time/time-armv7.a(time.armv7.o)
+ .bss           0x00c65008        0x0 lib/lib-armv7.a(memcpy.armv7.o)
+ .bss           0x00c65008        0x0 lib/lib-armv7.a(memset.armv7.o)
+ .bss           0x00c65008        0x0 lib/lib-armv7.a(printk.armv7.o)
+ .bss           0x00c65008        0x0 lib/lib-armv7.a(string.armv7.o)
+                0x00c66000                        . = ALIGN (0x1000)
+                0x00c66000                        __bss_end = .
+                0x00c66000                        __end = .
+LOAD kernel_main.armv7.o
+LOAD boot/boot-armv7.a
+LOAD interrupts/interrupts-armv7.a
+LOAD syscalls/syscalls-armv7.a
+LOAD fs/fs-armv7.a
+LOAD drivers/drivers-armv7.a
+LOAD memory/memory-armv7.a
+LOAD processes/processes-armv7.a
+LOAD debug/debug-armv7.a
+LOAD time/time-armv7.a
+LOAD lib/lib-armv7.a
+OUTPUT(kernel7.elf elf32-littlearm)
+LOAD linker stubs
+
+.comment        0x00000000       0x45
+ .comment       0x00000000       0x45 kernel_main.armv7.o
+                                 0x46 (size before relaxing)
+ .comment       0x00000045       0x46 boot/boot-armv7.a(hardware_detect.armv7.o)
+ .comment       0x00000045       0x46 boot/boot-armv7.a(device_tree.armv7.o)
+ .comment       0x00000045       0x46 interrupts/interrupts-armv7.a(interrupts.armv7.o)
+ .comment       0x00000045       0x46 interrupts/interrupts-armv7.a(gic-400.armv7.o)
+ .comment       0x00000045       0x46 syscalls/syscalls-armv7.a(syscalls.armv7.o)
+ .comment       0x00000045       0x46 syscalls/syscalls-armv7.a(nanosleep.armv7.o)
+ .comment       0x00000045       0x46 syscalls/syscalls-armv7.a(sysinfo.armv7.o)
+ .comment       0x00000045       0x46 syscalls/syscalls-armv7.a(times.armv7.o)
+ .comment       0x00000045       0x46 syscalls/syscalls-armv7.a(uname.armv7.o)
+ .comment       0x00000045       0x46 fs/files.armv7.o
+ .comment       0x00000045       0x46 fs/romfs/romfs-armv7.a(romfs.armv7.o)
+ .comment       0x00000045       0x46 drivers/drivers.armv7.o
+ .comment       0x00000045       0x46 drivers/bcm2835/bcm2835.armv7.a(bcm2835_io.armv7.o)
+ .comment       0x00000045       0x46 drivers/block/block.armv7.a(ramdisk.armv7.o)
+ .comment       0x00000045       0x46 drivers/console/console.armv7.a(console_io.armv7.o)
+ .comment       0x00000045       0x46 drivers/framebuffer/framebuffer.armv7.a(framebuffer.armv7.o)
+ .comment       0x00000045       0x46 drivers/framebuffer/framebuffer.armv7.a(framebuffer_console.armv7.o)
+ .comment       0x00000045       0x46 drivers/led/led.armv7.a(led.armv7.o)
+ .comment       0x00000045       0x46 drivers/serial/serial.armv7.a(serial.armv7.o)
+ .comment       0x00000045       0x46 drivers/timer/timer.armv7.a(sp804_timer.armv7.o)
+ .comment       0x00000045       0x46 drivers/firmware/firmware.armv7.a(mailbox.armv7.o)
+ .comment       0x00000045       0x46 drivers/gpio/gpio.armv7.a(gpio.armv7.o)
+ .comment       0x00000045       0x46 drivers/serial/serial.armv7.a(pl011_uart.armv7.o)
+ .comment       0x00000045       0x46 drivers/serial/serial.armv7.a(mini_uart.armv7.o)
+ .comment       0x00000045       0x46 memory/memory-armv7.a(memory.armv7.o)
+ .comment       0x00000045       0x46 memory/memory-armv7.a(armv7-mmu.o)
+ .comment       0x00000045       0x46 processes/processes-armv7.a(process.armv7.o)
+ .comment       0x00000045       0x46 processes/processes-armv7.a(exec.armv7.o)
+ .comment       0x00000045       0x46 processes/processes-armv7.a(exit.armv7.o)
+ .comment       0x00000045       0x46 processes/processes-armv7.a(idle_task.armv7.o)
+ .comment       0x00000045       0x46 processes/processes-armv7.a(scheduler.armv7.o)
+ .comment       0x00000045       0x46 processes/processes-armv7.a(userspace.armv7.o)
+ .comment       0x00000045       0x46 processes/processes-armv7.a(vfork.armv7.o)
+ .comment       0x00000045       0x46 processes/processes-armv7.a(waitpid.armv7.o)
+ .comment       0x00000045       0x46 processes/processes-armv7.a(waitqueue.armv7.o)
+ .comment       0x00000045       0x46 debug/debug-armv7.a(panic.armv7.o)
+ .comment       0x00000045       0x46 time/time-armv7.a(time.armv7.o)
+ .comment       0x00000045       0x46 lib/lib-armv7.a(memcpy.armv7.o)
+ .comment       0x00000045       0x46 lib/lib-armv7.a(memset.armv7.o)
+ .comment       0x00000045       0x46 lib/lib-armv7.a(printk.armv7.o)
+ .comment       0x00000045       0x46 lib/lib-armv7.a(string.armv7.o)
+
+.ARM.attributes
+                0x00000000       0x39
+ .ARM.attributes
+                0x00000000       0x2f kernel_main.armv7.o
+ .ARM.attributes
+                0x0000002f       0x29 boot/boot-armv7.a(boot-armv7.o)
+ .ARM.attributes
+                0x00000058       0x35 boot/boot-armv7.a(hardware_detect.armv7.o)
+ .ARM.attributes
+                0x0000008d       0x35 boot/boot-armv7.a(device_tree.armv7.o)
+ .ARM.attributes
+                0x000000c2       0x35 interrupts/interrupts-armv7.a(interrupts.armv7.o)
+ .ARM.attributes
+                0x000000f7       0x29 interrupts/interrupts-armv7.a(irq_handler.armv7.o)
+ .ARM.attributes
+                0x00000120       0x35 interrupts/interrupts-armv7.a(gic-400.armv7.o)
+ .ARM.attributes
+                0x00000155       0x29 syscalls/syscalls-armv7.a(swi_handler.armv7.o)
+ .ARM.attributes
+                0x0000017e       0x35 syscalls/syscalls-armv7.a(syscalls.armv7.o)
+ .ARM.attributes
+                0x000001b3       0x35 syscalls/syscalls-armv7.a(nanosleep.armv7.o)
+ .ARM.attributes
+                0x000001e8       0x35 syscalls/syscalls-armv7.a(sysinfo.armv7.o)
+ .ARM.attributes
+                0x0000021d       0x35 syscalls/syscalls-armv7.a(times.armv7.o)
+ .ARM.attributes
+                0x00000252       0x35 syscalls/syscalls-armv7.a(uname.armv7.o)
+ .ARM.attributes
+                0x00000287       0x35 fs/files.armv7.o
+ .ARM.attributes
+                0x000002bc       0x35 fs/romfs/romfs-armv7.a(romfs.armv7.o)
+ .ARM.attributes
+                0x000002f1       0x35 drivers/drivers.armv7.o
+ .ARM.attributes
+                0x00000326       0x35 drivers/bcm2835/bcm2835.armv7.a(bcm2835_io.armv7.o)
+ .ARM.attributes
+                0x0000035b       0x35 drivers/block/block.armv7.a(ramdisk.armv7.o)
+ .ARM.attributes
+                0x00000390       0x35 drivers/console/console.armv7.a(console_io.armv7.o)
+ .ARM.attributes
+                0x000003c5       0x35 drivers/framebuffer/framebuffer.armv7.a(framebuffer.armv7.o)
+ .ARM.attributes
+                0x000003fa       0x35 drivers/framebuffer/framebuffer.armv7.a(framebuffer_console.armv7.o)
+ .ARM.attributes
+                0x0000042f       0x35 drivers/led/led.armv7.a(led.armv7.o)
+ .ARM.attributes
+                0x00000464       0x35 drivers/serial/serial.armv7.a(serial.armv7.o)
+ .ARM.attributes
+                0x00000499       0x35 drivers/timer/timer.armv7.a(sp804_timer.armv7.o)
+ .ARM.attributes
+                0x000004ce       0x35 drivers/firmware/firmware.armv7.a(mailbox.armv7.o)
+ .ARM.attributes
+                0x00000503       0x35 drivers/gpio/gpio.armv7.a(gpio.armv7.o)
+ .ARM.attributes
+                0x00000538       0x35 drivers/serial/serial.armv7.a(pl011_uart.armv7.o)
+ .ARM.attributes
+                0x0000056d       0x35 drivers/serial/serial.armv7.a(mini_uart.armv7.o)
+ .ARM.attributes
+                0x000005a2       0x35 memory/memory-armv7.a(memory.armv7.o)
+ .ARM.attributes
+                0x000005d7       0x35 memory/memory-armv7.a(armv7-mmu.o)
+ .ARM.attributes
+                0x0000060c       0x35 processes/processes-armv7.a(process.armv7.o)
+ .ARM.attributes
+                0x00000641       0x35 processes/processes-armv7.a(exec.armv7.o)
+ .ARM.attributes
+                0x00000676       0x35 processes/processes-armv7.a(exit.armv7.o)
+ .ARM.attributes
+                0x000006ab       0x35 processes/processes-armv7.a(idle_task.armv7.o)
+ .ARM.attributes
+                0x000006e0       0x35 processes/processes-armv7.a(scheduler.armv7.o)
+ .ARM.attributes
+                0x00000715       0x35 processes/processes-armv7.a(userspace.armv7.o)
+ .ARM.attributes
+                0x0000074a       0x2f processes/processes-armv7.a(vfork.armv7.o)
+ .ARM.attributes
+                0x00000779       0x2f processes/processes-armv7.a(waitpid.armv7.o)
+ .ARM.attributes
+                0x000007a8       0x2f processes/processes-armv7.a(waitqueue.armv7.o)
+ .ARM.attributes
+                0x000007d7       0x35 debug/debug-armv7.a(panic.armv7.o)
+ .ARM.attributes
+                0x0000080c       0x35 time/time-armv7.a(time.armv7.o)
+ .ARM.attributes
+                0x00000841       0x35 lib/lib-armv7.a(memcpy.armv7.o)
+ .ARM.attributes
+                0x00000876       0x35 lib/lib-armv7.a(memset.armv7.o)
+ .ARM.attributes
+                0x000008ab       0x35 lib/lib-armv7.a(printk.armv7.o)
+ .ARM.attributes
+                0x000008e0       0x35 lib/lib-armv7.a(string.armv7.o)
