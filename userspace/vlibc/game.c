@@ -6,12 +6,15 @@
 #include <stdio.h>
 
 extern struct frame_buffer_info_type current_fb;
-int left_paddle_x = 30, left_paddle_y;
-int right_paddle_x, right_paddle_y;
-int ball_x, ball_y;
+// int left_paddle_x = 30, left_paddle_y;
+// int right_paddle_x, right_paddle_y;
+// int ball_x, ball_y;
 
-void init_game(void)
+int init_game(void)
 {
+    int left_paddle_x = 30, left_paddle_y;
+    int right_paddle_x, right_paddle_y;
+    int ball_x, ball_y;
     printf("Welcome to init_game\n");
     // Retrieve the framebuffer dimensions and depth using syscalls
     int fb_width = fb_get_width();
@@ -22,7 +25,7 @@ void init_game(void)
         printf("Error: Failed to get framebuffer width\n");
         return;
     }
-    printf("Framebuffer dimensions (w*h) = %d x %d\n", fb_width, fb_height );
+    printf("Framebuffer dimensions (w*h) = %d x %d\n", fb_width, fb_height);
     // Initialize the positions of the paddles and the ball
     // left_paddle_x = 30;              
     printf("L_x: %d\t",left_paddle_x);                
@@ -37,12 +40,13 @@ void init_game(void)
     ball_x = (fb_width) / 2;
     ball_y = (fb_height) / 2;
     printf("Left Paddle: (%d,%d)\tRight Paddle: (%d,%d)\tBall: (%d,%d)\nReturning from init_game()\n",left_paddle_x,left_paddle_y,right_paddle_x,right_paddle_y,ball_x,ball_y);
+    return left_paddle_y;
 }
 
 void start_game(void)
 {
     printf("Welcome to start_game\n");
-    init_game();
+    int L_y = init_game();
     printf("Entering infinite while of start_game\n");
     while (1)
     {
@@ -76,8 +80,8 @@ void render_game(void)
     // framebuffer_clear_screen(0);    // Clear the screen
     fb_clear_screen(0);
 
-    draw_rectangle(left_paddle_x, left_paddle_y, PADDLE_WIDTH, PADDLE_HEIGHT, 0xFFFFFF);   // // Draw left paddle White color
-    draw_rectangle(right_paddle_x, right_paddle_y, PADDLE_WIDTH, PADDLE_HEIGHT, 0xFFFFFF); // // Draw right paddle White color
+    // draw_rectangle(left_paddle_x, left_paddle_y, PADDLE_WIDTH, PADDLE_HEIGHT, 0xFFFFFF);   // // Draw left paddle White color
+    // draw_rectangle(right_paddle_x, right_paddle_y, PADDLE_WIDTH, PADDLE_HEIGHT, 0xFFFFFF); // // Draw right paddle White color
     // draw_circle(ball_x, ball_y, BALL_SIZE / 2, 0xFFFFFF); // Draw ball White color
 
     syscall_framebuffer_push(); // Update the display
@@ -90,14 +94,14 @@ int is_esc_pressed()
     return 0;
 }
 
-void draw_rectangle(int x, int y, int width, int height, int color)
-{
-    printf("Welcome to draw_rectangle\n");
-    fb_hline(color, x, x + width, y);          // Top line
-    fb_hline(color, x, x + width, y + height); // Bottom line
-    fb_vline(color, y, y + height, x);         // Left line
-    fb_vline(color, y, y + height, x + width); // Right line
-}
+// void draw_rectangle(int x, int y, int width, int height, int color)
+// {
+//     printf("Welcome to draw_rectangle\n");
+//     fb_hline(color, x, x + width, y);          // Top line
+//     fb_hline(color, x, x + width, y + height); // Bottom line
+//     fb_vline(color, y, y + height, x);         // Left line
+//     fb_vline(color, y, y + height, x + width); // Right line
+// }
 
 // void plot_circle_points(int cx, int cy, int x, int y, int color) {
 //     framebuffer_putpixel(color, cx + x, cy + y);

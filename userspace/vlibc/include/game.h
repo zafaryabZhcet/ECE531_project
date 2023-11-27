@@ -7,7 +7,7 @@
 #define BALL_SIZE 10
 
 // Function to initialize the game
-void init_game(void);
+int init_game(void);
 
 // Function to start the game loop
 void start_game(void);
