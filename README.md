@@ -12,5 +12,5 @@ genromfs-0.5.2>genromfs.c
 
 kernel>include>syscalls>syscalls.h;
 kernel>syscalls>syscalls.c;
-kernel>drivers>framebuffer>framebuffer.c /n
+kernel>drivers>framebuffer>framebuffer.c; 
 kernel>include>drivers>framebuffer>framebuffer.h;
