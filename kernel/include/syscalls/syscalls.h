@@ -40,3 +40,16 @@
 #define SYSCALL_RANDOM		8199
 #define SYSCALL_FRAMEBUFFER_LOAD	8200
 #define SYSCALL_MALLOC		8201	/* hack */
+
+
+// Added these to existing syscall numbers to use framebuffer for game in userspace
+#define SYSCALL_FB_PUTPIXEL     8300
+#define SYSCALL_FB_HLINE        8301
+#define SYSCALL_FB_VLINE        8302
+#define SYSCALL_FB_CLEAR        8303
+#define SYSCALL_FB_PUSH			8304
+
+// New syscalls for framebuffer information
+#define SYSCALL_FB_GET_WIDTH  8400
+#define SYSCALL_FB_GET_HEIGHT 8401
+#define SYSCALL_FB_GET_DEPTH       8402

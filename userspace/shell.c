@@ -3,6 +3,7 @@
 #include "syscalls.h"
 #include "vlibc.h"
 #include "vmwos.h"
+#include "game.h"
 
 //#include <stdio.h>
 //#include <string.h>
@@ -195,6 +196,10 @@ static int parse_input(char *string) {
 	else if (strlen(string)==0) {
 		/* do nothing */
 	}
+	else if (!strncmp(string, "game", 4)) {
+		printf("Welcome to game");
+        start_game();
+    }
 	else {
 		int32_t pid,status,result,background;
 		struct stat stat_buf;

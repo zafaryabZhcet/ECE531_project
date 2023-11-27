@@ -1,3 +1,5 @@
+#include <stdint.h>
+#include <stddef.h>
 
 /* We do things in hex in vmwos, none of this octal nonsense */
 #define	S_IFMT		0xf000	/* mask			*/
@@ -239,3 +241,25 @@ struct statfs {
 };
 
 int statfs(const char *path, struct statfs *buf);
+
+
+
+// Added these definitions for game specific
+#define __NR_FB_PUTPIXEL     	8300
+#define __NR_FB_HLINE        	8301
+#define __NR_FB_VLINE        	8302
+#define __NR_FB_CLEAR        	8303
+#define __NR_FB_PUSH			8304
+int syscall_framebuffer_push();
+int fb_clear_screen(int color);
+int fb_putpixel(int color, int x, int y);
+int fb_vline(int color, int y0, int y1, int x);
+int fb_hline(int color, int x0, int x1, int y);
+
+// New syscalls for framebuffer information
+#define __NR_FB_GET_WIDTH  		8400
+#define __NR_FB_GET_HEIGHT 		8401
+#define __NR_FB_GET_DEPTH       8402
+int fb_get_depth();
+int fb_get_height();
+int fb_get_width() ;

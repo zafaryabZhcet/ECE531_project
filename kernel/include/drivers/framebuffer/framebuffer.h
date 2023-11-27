@@ -8,3 +8,14 @@ int framebuffer_ready(void);
 int framebuffer_gradient(void);
 int framebuffer_load(int x, int y, int depth, char *pointer);
 
+struct frame_buffer_info_type {
+    int phys_x, phys_y;    // Physical Width / Height
+    int virt_x, virt_y;    // Virtual Width / Height
+    int pitch;             // Bytes per row
+    int depth;             // Bits per pixel
+    int x, y;              // Offset
+    int pointer;           // Pointer to the framebuffer
+    int size;              // Size of the framebuffer
+};
+
+// extern struct frame_buffer_info_type current_fb;

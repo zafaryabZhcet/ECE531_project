@@ -3,11 +3,14 @@
 
 #include "lib/printk.h"
 
-#include "syscalls/syscalls.h"
+// #include "syscalls/syscalls.h"
+#include "../include/syscalls/syscalls.h"
 
 #include "drivers/console/console_io.h"
-#include "drivers/framebuffer/framebuffer.h"
-#include "drivers/framebuffer/framebuffer_console.h"
+// #include "drivers/framebuffer/framebuffer.h"
+// #include "drivers/framebuffer/framebuffer_console.h"
+#include "../include/drivers/framebuffer/framebuffer.h"
+#include "../include/drivers/framebuffer/framebuffer_console.h"
 #include "drivers/bcm2835/bcm2835_io.h"
 #include "drivers/bcm2835/bcm2835_periph.h"
 #include "fs/files.h"
@@ -30,7 +33,9 @@
 
 #include "memory/memory.h"
 
+
 extern int blinking_enabled;
+static struct frame_buffer_info_type current_fb;
 
 /* Note!  Do not call a SWI from supervisor mode */
 /* as the svc_lr and svc_spr can get corrupted   */
@@ -39,7 +44,7 @@ uint32_t swi_handler_c(
 	uint32_t r0, uint32_t r1, uint32_t r2, uint32_t r3) {
 
 	register long r7 asm ("r7");
-
+	// printk("Entering syscall: %ld, r0=%d, r1=%d, r2=%d, r3=%d\n", r7, r0, r1, r2, r3);
 	/* Keep running interrupts while inside of SWI */
 //	enable_interrupts();
 
@@ -210,6 +215,50 @@ uint32_t swi_handler_c(
 		case SYSCALL_FRAMEBUFFER_LOAD:
 			result=framebuffer_load(r0,r1,r2,(char *)r3);
 			break;
+		
+
+
+		/******************/
+		/* GAME SPECIFIC */
+		/******************/
+		case SYSCALL_FB_PUTPIXEL :
+        	result = framebuffer_putpixel(r0, r1, r2); 
+			if (result != 0){
+				printk("Error handling putpixel : %d\n", result);
+			}
+        	break;
+    	case SYSCALL_FB_HLINE:
+        	result = framebuffer_hline(r0, r1, r2, r3); 
+			if (result != 0){
+				printk("Error handling hline : %d\n", result);
+			}
+       		break;
+		case SYSCALL_FB_VLINE:
+			result = framebuffer_vline(r0, r1, r2, r3);
+			break;
+			if (result != 0){
+				printk("Error handling vline : %d\n", result);
+			}
+		case SYSCALL_FB_CLEAR:
+			result = framebuffer_clear_screen(r0);
+			if (result != 0){
+				printk("Error handlin clear_screen : %d\n", result);
+			}
+			break;
+		case SYSCALL_FB_PUSH:
+			result = framebuffer_push();
+			if (result != 0){
+				printk("Error handling push : %d\n", result);
+			}
+			break;
+		case SYSCALL_FB_GET_WIDTH:
+            return current_fb.phys_x;
+        
+        case SYSCALL_FB_GET_HEIGHT:
+            return current_fb.phys_y;
+
+        case SYSCALL_FB_GET_DEPTH:
+            return current_fb.depth;
 #if 0
 		case SYSCALL_TB1:
 			result=framebuffer_tb1();

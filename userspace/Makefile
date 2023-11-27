@@ -177,6 +177,7 @@ ls.o:	ls.c
 ll.o:	ll.arm.eabi.s logo.lzss_new
 	$(CROSS)$(AS) -o ll.o ll.arm.eabi.s
 
+
 ./vlibc/vlibc.a:
 	cd	vlibc && make
 

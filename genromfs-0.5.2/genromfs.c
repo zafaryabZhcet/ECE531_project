@@ -56,7 +56,7 @@
  * Warning!  Quite spaghetti code, it was born in a few hours.
  * Sorry about that.  Feel free to contact me if you have problems.
  */
-#define VERSION "0.5.2"
+
 #include <stdio.h>  /* Userland pieces of the ANSI C standard I/O package  */
 #include <stdlib.h> /* Userland prototypes of the ANSI C std lib functions */
 #include <string.h> /* Userland prototypes of the string handling funcs    */
@@ -69,6 +69,8 @@
 #include <sys/types.h>
 
 #include <netinet/in.h>	/* Consts & structs defined by the internet system */
+#include "../kernel/version.h"
+
 
 /* good old times without autoconf... */
 #if defined(__linux__) || defined(__sun__) || defined(__CYGWIN__)

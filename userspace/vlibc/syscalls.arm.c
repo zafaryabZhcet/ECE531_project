@@ -25,7 +25,6 @@
 #define	__NR_uname	122
 #define __NR_getdents	141
 #define __NR_nanosleep  162
-#define __NR_nanosleep  162
 #define __NR_getcwd	183
 #define __NR_vfork	190
 #define __NR_clock_gettime	263
@@ -397,3 +396,121 @@ int statfs(const char *path, struct statfs *buf) {
 
 	return r0;
 }
+
+// Code added for game
+int fb_hline(int color, int x0, int x1, int y) {
+    register long r7 __asm__("r7") = __NR_FB_HLINE;
+    register long r0 __asm__("r0") = color;
+    register long r1 __asm__("r1") = x0;
+    register long r2 __asm__("r2") = x1;
+    register long r3 __asm__("r3") = y;
+	int result;
+
+    asm volatile(
+        "svc #0\n"
+        : "=r"(result)
+        : "r"(r7), "r"(r0), "r"(r1), "r"(r2), "r"(r3)
+        : "memory");
+	
+	return result;
+}
+
+int fb_vline(int color, int y0, int y1, int x) {
+    register long r7 __asm__("r7") = __NR_FB_VLINE;
+    register long r0 __asm__("r0") = color;
+    register long r1 __asm__("r1") = y0;
+    register long r2 __asm__("r2") = y1;
+    register long r3 __asm__("r3") = x;
+	int result;
+
+    asm volatile(
+        "svc #0\n"
+        : "=r"(result)
+        : "r"(r7), "r"(r0), "r"(r1), "r"(r2), "r"(r3)
+        : "memory");
+	
+	return result;
+}
+
+int fb_putpixel(int color, int x, int y) {
+    register long r7 __asm__("r7") = __NR_FB_PUTPIXEL;
+    register long r0 __asm__("r0") = color;
+    register long r1 __asm__("r1") = x;
+    register long r2 __asm__("r2") = y;
+	int result;
+
+    asm volatile(
+        "svc #0\n"
+        : "=r"(result)
+        : "r"(r7), "r"(r0), "r"(r1), "r"(r2)
+        : "memory");
+	
+	return result;
+}
+
+int fb_clear_screen(int color) {
+    register long r7 __asm__("r7") = __NR_FB_CLEAR;
+    register long r0 __asm__("r0") = color;
+	int result;
+
+    asm volatile(
+        "svc #0\n"
+        : "=r"(result)
+        : "r"(r7), "r"(r0)
+        : "memory");
+	
+	return result;
+}
+
+int syscall_framebuffer_push(void) {
+    register long r7 __asm__("r7") = __NR_FB_PUSH;
+	int result;
+
+    asm volatile(
+        "svc #0\n"
+        : "=r"(result)
+        : "r"(r7)
+        : "memory");
+	
+	return result;
+}
+
+int fb_get_width() {
+    register long r7 __asm__("r7") = __NR_FB_GET_WIDTH;
+    register long r0 __asm__("r0");
+	
+    asm volatile(
+        "svc #0\n"
+        : "=r"(r0)
+        : "r"(r7)
+        : "memory");
+
+    return r0;
+}
+
+int fb_get_height() {
+    register long r7 __asm__("r7") = __NR_FB_GET_HEIGHT;
+    register long r0 __asm__("r0");
+
+    asm volatile(
+        "svc #0\n"
+        : "=r"(r0)
+        : "r"(r7)
+        : "memory");
+
+    return r0;
+}
+
+int fb_get_depth() {
+    register long r7 __asm__("r7") = __NR_FB_GET_DEPTH;
+    register long r0 __asm__("r0");
+
+    asm volatile(
+        "svc #0\n"
+        : "=r"(r0)
+        : "r"(r7)
+        : "memory");
+
+    return r0;
+}
+

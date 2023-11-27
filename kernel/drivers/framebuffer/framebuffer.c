@@ -10,7 +10,8 @@
 #include "lib/printk.h"
 
 #include "drivers/firmware/mailbox.h"
-#include "drivers/framebuffer/framebuffer.h"
+// #include "drivers/framebuffer/framebuffer.h"
+#include "../../include/drivers/framebuffer/framebuffer.h"
 
 #include "lib/string.h"
 #include "lib/memcpy.h"
@@ -24,15 +25,15 @@ static int framebuffer_initialized=0;
 static struct frame_buffer_info_type current_fb;
 static unsigned char offscreen[2048*2048*3];
 
-struct frame_buffer_info_type {
-	int phys_x,phys_y;	/* IN: Physical Width / Height*/
-	int virt_x,virt_y;	/* IN: Virtual Width / Height */
-	int pitch;		/* OUT: bytes per row */
-	int depth;		/* IN: bits per pixel */
-	int x,y;		/* IN: offset to skip when copying fb */
-	int pointer;		/* OUT: pointer to the framebuffer */
-	int size;		/* OUT: size of the framebuffer */
-};
+// struct frame_buffer_info_type {
+// 	int phys_x,phys_y;	/* IN: Physical Width / Height*/
+// 	int virt_x,virt_y;	/* IN: Virtual Width / Height */
+// 	int pitch;		/* OUT: bytes per row */
+// 	int depth;		/* IN: bits per pixel */
+// 	int x,y;		/* IN: offset to skip when copying fb */
+// 	int pointer;		/* OUT: pointer to the framebuffer */
+// 	int size;		/* OUT: size of the framebuffer */
+// };
 
 
 int framebuffer_ready(void) {
@@ -135,6 +136,7 @@ char *framebuffer_init(int x, int y, int depth) {
 }
 
 int framebuffer_hline(int color, int x0, int x1, int y) {
+	// printk("framebuffer_hline: color=%d, x0=%d, x1=%d, y=%d\n", color, x0, x1, y);
 
 	int x;
 	int r,g,b;
@@ -155,6 +157,7 @@ int framebuffer_hline(int color, int x0, int x1, int y) {
 }
 
 int framebuffer_vline(int color, int y0, int y1, int x) {
+	// printk("framebuffer_vline: color=%d, y0=%d, y1=%d, x=%d\n", color, y0, y1, x);
 
 	int y;
 	int r,g,b;
@@ -175,6 +178,7 @@ int framebuffer_vline(int color, int y0, int y1, int x) {
 }
 
 int framebuffer_clear_screen(int color) {
+	// printk("framebuffer_clear_screen: color=%d\n", color);
 
 	int y;
 
@@ -186,6 +190,7 @@ int framebuffer_clear_screen(int color) {
 }
 
 int framebuffer_putpixel(int color, int x, int y) {
+	// printk("framebuffer_putpixel: color=%d, x=%d, y=%d\n", color, x, y);
 
 	int r,g,b;
 
@@ -206,6 +211,7 @@ int framebuffer_putpixel(int color, int x, int y) {
 int framebuffer_push(void) {
 	memcpy((unsigned char *)current_fb.pointer,
 		offscreen,current_fb.phys_x*current_fb.phys_y*3);
+		
 
 	return 0;
 
@@ -213,7 +219,7 @@ int framebuffer_push(void) {
 
 int framebuffer_gradient(void) {
 
-	int x;
+	// int x;
 
 	/* YOUR CODE HERE */
 

@@ -5,10 +5,10 @@ all:	vlibc.a
 
 vlibc.a:	start.o \
 		div.o error.o printf.o random.o stdio.o string.o system.o time.o tty.o \
-		vmwos.o syscalls.arm.o
+		vmwos.o syscalls.arm.o game.o
 	$(CROSS)$(AR) crs vlibc.a start.o \
 		div.o error.o printf.o random.o stdio.o string.o system.o time.o tty.o \
-		vmwos.o syscalls.arm.o
+		vmwos.o syscalls.arm.o game.o
 
 start.o:	start.c
 	$(CROSS)$(CC) $(CFLAGS) -c start.c
@@ -45,6 +45,10 @@ vmwos.o:	vmwos.c
 
 syscalls.arm.o:	syscalls.arm.c
 	$(CROSS)$(CC) $(CFLAGS) -c syscalls.arm.c
+
+game.o:	game.c
+	$(CROSS)$(CC) $(CFLAGS) -I../../kernel/include -c game.c
+
 
 clean:
 	rm -f *~ *.o *.a
