@@ -12,6 +12,7 @@ int ball_x, ball_y;
 
 void init_game(void)
 {
+    printf("Welcome to init_game\n");
     // Retrieve the framebuffer dimensions and depth using syscalls
     int fb_width = fb_get_width();
     int fb_height = fb_get_height();
@@ -35,6 +36,7 @@ void init_game(void)
 
 void start_game(void)
 {
+    printf("Welcome to start_game\n");
     init_game();
 
     while (1)
@@ -65,7 +67,7 @@ void update_game_state(void)
 
 void render_game(void)
 {
-
+    printf("Welcome to render_game\n");
     // framebuffer_clear_screen(0);    // Clear the screen
     fb_clear_screen(0);
 
@@ -85,6 +87,7 @@ int is_esc_pressed()
 
 void draw_rectangle(int x, int y, int width, int height, int color)
 {
+    printf("Welcome to draw_rectangle\n");
     fb_hline(color, x, x + width, y);          // Top line
     fb_hline(color, x, x + width, y + height); // Bottom line
     fb_vline(color, y, y + height, x);         // Left line

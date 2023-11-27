@@ -399,6 +399,7 @@ int statfs(const char *path, struct statfs *buf) {
 
 // Code added for game
 int fb_hline(int color, int x0, int x1, int y) {
+	printf("Welcome to fb_hline\n");
     register long r7 __asm__("r7") = __NR_FB_HLINE;
     register long r0 __asm__("r0") = color;
     register long r1 __asm__("r1") = x0;
@@ -416,6 +417,7 @@ int fb_hline(int color, int x0, int x1, int y) {
 }
 
 int fb_vline(int color, int y0, int y1, int x) {
+	printf("Welcome to vline\n");
     register long r7 __asm__("r7") = __NR_FB_VLINE;
     register long r0 __asm__("r0") = color;
     register long r1 __asm__("r1") = y0;
@@ -449,6 +451,7 @@ int fb_putpixel(int color, int x, int y) {
 }
 
 int fb_clear_screen(int color) {
+	printf("Welcome to fb_clear_screen\n");
     register long r7 __asm__("r7") = __NR_FB_CLEAR;
     register long r0 __asm__("r0") = color;
 	int result;
@@ -463,6 +466,7 @@ int fb_clear_screen(int color) {
 }
 
 int syscall_framebuffer_push(void) {
+	printf("Welcome to syscall_framebuffer_push\n");
     register long r7 __asm__("r7") = __NR_FB_PUSH;
 	int result;
 

@@ -197,7 +197,7 @@ static int parse_input(char *string) {
 		/* do nothing */
 	}
 	else if (!strncmp(string, "game", 4)) {
-		printf("Welcome to game");
+		printf("Welcome to game\n");
         start_game();
     }
 	else {
