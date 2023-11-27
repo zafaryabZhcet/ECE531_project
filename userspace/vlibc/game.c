@@ -1,12 +1,12 @@
 // game.c
 
-#include "game.h"
+#include "./include/game.h"
 #include "../../kernel/include/drivers/framebuffer/framebuffer.h" // Include your framebuffer and other libraries
 #include "syscalls.h"
 #include <stdio.h>
 
 extern struct frame_buffer_info_type current_fb;
-int left_paddle_x, left_paddle_y;
+int left_paddle_x = 30, left_paddle_y;
 int right_paddle_x, right_paddle_y;
 int ball_x, ball_y;
 
@@ -24,11 +24,15 @@ void init_game(void)
     }
     printf("Framebuffer dimensions (w*h) = %d x %d\n", fb_width, fb_height );
     // Initialize the positions of the paddles and the ball
-    left_paddle_x = 30;                              
+    // left_paddle_x = 30;              
+    printf("L_x: %d\t",left_paddle_x);                
     left_paddle_y = (fb_height - PADDLE_HEIGHT) / 2; // Centered vertically
+    printf("L_y: %d\tP_h: %d\n",left_paddle_y, PADDLE_HEIGHT);    
 
     right_paddle_x = fb_width - 30 - PADDLE_WIDTH;
+    printf("R_x: %d\t",right_paddle_x);  
     right_paddle_y = (fb_height - PADDLE_HEIGHT) / 2; // Centered vertically
+    printf("R_y: %d\tP_h: %d\n",right_paddle_y, PADDLE_WIDTH);  
 
     ball_x = (fb_width) / 2;
     ball_y = (fb_height) / 2;
