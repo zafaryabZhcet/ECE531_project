@@ -30,8 +30,8 @@ void init_game(void)
     right_paddle_x = fb_width - 30 - PADDLE_WIDTH;
     right_paddle_y = (fb_height - PADDLE_HEIGHT) / 2; // Centered vertically
 
-    ball_x = (fb_width - BALL_SIZE) / 2;
-    ball_y = (fb_height - BALL_SIZE) / 2;
+    ball_x = (fb_width) / 2;
+    ball_y = (fb_height) / 2;
     printf("Left Paddle: (%d,%d)\tRight Paddle: (%d,%d)\tBall: (%d,%d)\nReturning from init_game()\n",left_paddle_x,left_paddle_y,right_paddle_x,right_paddle_y,ball_x,ball_y);
 }
 
