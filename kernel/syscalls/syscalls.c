@@ -252,12 +252,15 @@ uint32_t swi_handler_c(
 			}
 			break;
 		case SYSCALL_FB_GET_WIDTH:
+			printk("current_fb_phys_x : %d\n",current_fb.phys_x);
             return current_fb.phys_x;
         
         case SYSCALL_FB_GET_HEIGHT:
+			printk("current_fb_phys_y : %d\n",current_fb.phys_y);
             return current_fb.phys_y;
 
         case SYSCALL_FB_GET_DEPTH:
+			printk("current_fb_depth : %d\n",current_fb.depth);
             return current_fb.depth;
 #if 0
 		case SYSCALL_TB1:

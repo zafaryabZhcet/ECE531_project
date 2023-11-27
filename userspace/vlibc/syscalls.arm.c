@@ -1,7 +1,7 @@
 #include <stddef.h>
 #include <stdint.h>
-
-#include "syscalls.h"
+#include <stdio.h>
+#include "./include/syscalls.h"
 
 /* From Linux kernel, arch/arm/include/uapi/asm/unistd.h */
 /* That is auto-generated so not always there */
@@ -480,6 +480,7 @@ int syscall_framebuffer_push(void) {
 }
 
 int fb_get_width() {
+	printf("Welcome to fb_get_width\n");
     register long r7 __asm__("r7") = __NR_FB_GET_WIDTH;
     register long r0 __asm__("r0");
 	
@@ -493,6 +494,7 @@ int fb_get_width() {
 }
 
 int fb_get_height() {
+	printf("Welcome to fb_get_height\n");
     register long r7 __asm__("r7") = __NR_FB_GET_HEIGHT;
     register long r0 __asm__("r0");
 
@@ -506,6 +508,7 @@ int fb_get_height() {
 }
 
 int fb_get_depth() {
+	printf("Welcome to fb_get_depth\n");
     register long r7 __asm__("r7") = __NR_FB_GET_DEPTH;
     register long r0 __asm__("r0");
 

@@ -50,6 +50,6 @@
 #define SYSCALL_FB_PUSH			8304
 
 // New syscalls for framebuffer information
-#define SYSCALL_FB_GET_WIDTH  8400
-#define SYSCALL_FB_GET_HEIGHT 8401
-#define SYSCALL_FB_GET_DEPTH       8402
+#define SYSCALL_FB_GET_WIDTH    8400
+#define SYSCALL_FB_GET_HEIGHT   8401
+#define SYSCALL_FB_GET_DEPTH    8402

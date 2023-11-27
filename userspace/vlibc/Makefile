@@ -6,7 +6,7 @@ all:	vlibc.a
 vlibc.a:	start.o \
 		div.o error.o printf.o random.o stdio.o string.o system.o time.o tty.o \
 		vmwos.o syscalls.arm.o game.o
-	$(CROSS)$(AR) crs vlibc.a start.o \
+	$(CROSS)$(AR) crsT vlibc.a start.o \
 		div.o error.o printf.o random.o stdio.o string.o system.o time.o tty.o \
 		vmwos.o syscalls.arm.o game.o
 
