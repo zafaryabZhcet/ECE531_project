@@ -35,7 +35,7 @@
 
 
 extern int blinking_enabled;
-static struct frame_buffer_info_type current_fb;
+extern struct frame_buffer_info_type current_fb;
 
 /* Note!  Do not call a SWI from supervisor mode */
 /* as the svc_lr and svc_spr can get corrupted   */
