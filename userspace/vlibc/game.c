@@ -22,7 +22,7 @@ void init_game(void)
         printf("Error: Failed to get framebuffer width\n");
         return;
     }
-
+    printf("Framebuffer dimensions (w*h) = %d x %d\n", fb_width, fb_height );
     // Initialize the positions of the paddles and the ball
     left_paddle_x = 30;                              // Adjust as per your screen dimensions
     left_paddle_y = (fb_height - PADDLE_HEIGHT) / 2; // Centered vertically
@@ -32,13 +32,14 @@ void init_game(void)
 
     ball_x = (fb_width - BALL_SIZE) / 2;
     ball_y = (fb_height - BALL_SIZE) / 2;
+    printf("Left Paddle: (%d,%d)\tRight Paddle: (%d,%d)\tBall: (%d,%d)\nReturning from init_game()\n",left_paddle_x,left_paddle_y,right_paddle_x,right_paddle_y,ball_x,ball_y);
 }
 
 void start_game(void)
 {
     printf("Welcome to start_game\n");
     init_game();
-
+    printf("Entering infinite while of start_game\n")
     while (1)
     {
         // handle_game_input();
