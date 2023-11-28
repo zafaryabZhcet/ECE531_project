@@ -235,10 +235,11 @@ uint32_t swi_handler_c(
        		break;
 		case SYSCALL_FB_VLINE:
 			result = framebuffer_vline(r0, r1, r2, r3);
-			break;
 			if (result != 0){
 				printk("Error handling vline : %d\n", result);
 			}
+			break;
+			
 		case SYSCALL_FB_CLEAR:
 			result = framebuffer_clear_screen(r0);
 			if (result != 0){

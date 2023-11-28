@@ -399,39 +399,39 @@ int statfs(const char *path, struct statfs *buf) {
 
 // Code added for game
 int fb_hline(int color, int x0, int x1, int y) {
-	printf("Welcome to fb_hline\n");
+	// printf("Welcome to fb_hline\n");
     register long r7 __asm__("r7") = __NR_FB_HLINE;
     register long r0 __asm__("r0") = color;
     register long r1 __asm__("r1") = x0;
     register long r2 __asm__("r2") = x1;
     register long r3 __asm__("r3") = y;
-	int result;
+	// int result;
 
     asm volatile(
         "svc #0\n"
-        : "=r"(result)
+        : "=r"(r0)
         : "r"(r7), "r"(r0), "r"(r1), "r"(r2), "r"(r3)
         : "memory");
 	
-	return result;
+	return r0;
 }
 
 int fb_vline(int color, int y0, int y1, int x) {
-	printf("Welcome to vline\n");
+	// printf("Welcome to vline\n");
     register long r7 __asm__("r7") = __NR_FB_VLINE;
     register long r0 __asm__("r0") = color;
     register long r1 __asm__("r1") = y0;
     register long r2 __asm__("r2") = y1;
     register long r3 __asm__("r3") = x;
-	int result;
+	// int result;
 
     asm volatile(
         "svc #0\n"
-        : "=r"(result)
+        : "=r"(r0)
         : "r"(r7), "r"(r0), "r"(r1), "r"(r2), "r"(r3)
         : "memory");
 	
-	return result;
+	return r0;
 }
 
 int fb_putpixel(int color, int x, int y) {
@@ -439,48 +439,48 @@ int fb_putpixel(int color, int x, int y) {
     register long r0 __asm__("r0") = color;
     register long r1 __asm__("r1") = x;
     register long r2 __asm__("r2") = y;
-	int result;
+	// int result;
 
     asm volatile(
         "svc #0\n"
-        : "=r"(result)
+        : "=r"(r0)
         : "r"(r7), "r"(r0), "r"(r1), "r"(r2)
         : "memory");
 	
-	return result;
+	return r0;
 }
 
 int fb_clear_screen(int color) {
-	printf("Welcome to fb_clear_screen\n");
+	// printf("Welcome to fb_clear_screen\n");
     register long r7 __asm__("r7") = __NR_FB_CLEAR;
     register long r0 __asm__("r0") = color;
-	int result;
+	// int result;
 
     asm volatile(
         "svc #0\n"
-        : "=r"(result)
+        : "=r"(r0)
         : "r"(r7), "r"(r0)
         : "memory");
 	
-	return result;
+	return r0;
 }
 
 int syscall_framebuffer_push(void) {
-	printf("Welcome to syscall_framebuffer_push\n");
+	// printf("Welcome to Usyscall_framebuffer_push\n");
     register long r7 __asm__("r7") = __NR_FB_PUSH;
-	int result;
+	// int result;
 
     asm volatile(
         "svc #0\n"
-        : "=r"(result)
+        : //"=r"(result)
         : "r"(r7)
         : "memory");
 	
-	return result;
+	return 0;
 }
 
 int fb_get_width() {
-	printf("Welcome to fb_get_width\n");
+	// printf("Welcome to fb_get_width\n");
     register long r7 __asm__("r7") = __NR_FB_GET_WIDTH;
     register long r0 __asm__("r0");
 	
@@ -494,7 +494,7 @@ int fb_get_width() {
 }
 
 int fb_get_height() {
-	printf("Welcome to fb_get_height\n");
+	// printf("Welcome to fb_get_height\n");
     register long r7 __asm__("r7") = __NR_FB_GET_HEIGHT;
     register long r0 __asm__("r0");
 
@@ -508,7 +508,7 @@ int fb_get_height() {
 }
 
 int fb_get_depth() {
-	printf("Welcome to fb_get_depth\n");
+	// printf("Welcome to fb_get_depth\n");
     register long r7 __asm__("r7") = __NR_FB_GET_DEPTH;
     register long r0 __asm__("r0");
 

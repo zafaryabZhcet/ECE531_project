@@ -218,16 +218,32 @@ int framebuffer_push(void) {
 }
 
 int framebuffer_gradient(void) {
+    int y;
+    uint32_t red = 0; // Starting red component
 
-	// int x;
+    for (y = 0; y < current_fb.phys_y; y++) {
+        uint32_t color;
 
-	/* YOUR CODE HERE */
+        if (y < current_fb.phys_y / 2) {
+            red += 1; 
+            if (red > 255) red = 255; 
+        } else {
+            
+            red -= 1; 
+            if (red < 0) red = 0; 
+        }
 
-	/* Force a copy of our shadow framebuffer to the actual screen */
-	framebuffer_push();
+        color = (red << 16); // Combine the red component with the rest of the color
+        
+        framebuffer_hline(color, 0, current_fb.phys_x, y);
+    }
 
-	return 0;
+    // Force a copy of our shadow framebuffer to the actual screen
+    framebuffer_push();
+
+    return 0;
 }
+
 
 int framebuffer_load(int x, int y, int depth, char *pointer) {
 

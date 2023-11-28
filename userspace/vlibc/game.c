@@ -10,57 +10,56 @@ extern struct frame_buffer_info_type current_fb;
 // int right_paddle_x, right_paddle_y;
 // int ball_x, ball_y;
 
-int init_game(void)
-{
-    int left_paddle_x = 30, left_paddle_y;
-    int right_paddle_x, right_paddle_y;
-    int ball_x, ball_y;
+GameCoordinates init_game(void) {
+    GameCoordinates coords;
+
     printf("Welcome to init_game\n");
     // Retrieve the framebuffer dimensions and depth using syscalls
     int fb_width = fb_get_width();
     int fb_height = fb_get_height();
     
-    if (fb_width < 0 || fb_height < 0)
-    {
+    if (fb_width < 0 || fb_height < 0) {
         printf("Error: Failed to get framebuffer width\n");
-        return;
+        // Handle the error, maybe by returning an empty struct or setting a flag
+        return coords;
     }
     printf("Framebuffer dimensions (w*h) = %d x %d\n", fb_width, fb_height);
+
     // Initialize the positions of the paddles and the ball
-    // left_paddle_x = 30;              
-    printf("L_x: %d\t",left_paddle_x);                
-    left_paddle_y = (fb_height - PADDLE_HEIGHT) / 2; // Centered vertically
-    printf("L_y: %d\tP_h: %d\n",left_paddle_y, PADDLE_HEIGHT);    
+    coords.left_paddle_x = 30;                              
+    coords.left_paddle_y = (fb_height - PADDLE_HEIGHT) / 2;
 
-    right_paddle_x = fb_width - 30 - PADDLE_WIDTH;
-    printf("R_x: %d\t",right_paddle_x);  
-    right_paddle_y = (fb_height - PADDLE_HEIGHT) / 2; // Centered vertically
-    printf("R_y: %d\tP_h: %d\n",right_paddle_y, PADDLE_WIDTH);  
+    coords.right_paddle_x = fb_width - 30 - PADDLE_WIDTH;
+    coords.right_paddle_y = (fb_height - PADDLE_HEIGHT) / 2;
 
-    ball_x = (fb_width) / 2;
-    ball_y = (fb_height) / 2;
-    printf("Left Paddle: (%d,%d)\tRight Paddle: (%d,%d)\tBall: (%d,%d)\nReturning from init_game()\n",left_paddle_x,left_paddle_y,right_paddle_x,right_paddle_y,ball_x,ball_y);
-    return left_paddle_y;
+    coords.ball_x = fb_width / 2;
+    coords.ball_y = fb_height / 2;
+
+    printf("Left Paddle: (%d,%d)\tRight Paddle: (%d,%d)\tBall: (%d,%d)\nReturning from init_game()\n", coords.left_paddle_x, coords.left_paddle_y, coords.right_paddle_x, coords.right_paddle_y, coords.ball_x, coords.ball_y);
+
+    return coords;
 }
+
 
 void start_game(void)
 {
+    GameCoordinates gameCoords;
     printf("Welcome to start_game\n");
-    int L_y = init_game();
+    gameCoords = init_game();
     printf("Entering infinite while of start_game\n");
-    while (1)
-    {
+    //while (1)
+    //{
         // handle_game_input();
         // update_game_state();
-        render_game();
+        render_game(gameCoords);
 
-        // You might want to implement a delay here for timing control
+        delay(5000);
         // Check for 'ESC' key press to exit the game loop
-        if (is_esc_pressed())
-        {
-            break;
-        }
-    }
+        //if (is_esc_pressed())
+        //{
+            //break;
+        //}
+    //}
 }
 
 void handle_game_input(void)
@@ -74,14 +73,16 @@ void update_game_state(void)
     // Update your game's state (e.g., move objects, check for collisions)
 }
 
-void render_game(void)
+void render_game(GameCoordinates coords)
 {
-    printf("Welcome to render_game\n");
+    // printf("Welcome to render_game\n");
     // framebuffer_clear_screen(0);    // Clear the screen
-    fb_clear_screen(0);
+    int r=fb_clear_screen(30);
+    if (r)
+        printf("return value fb_clear_screen: %d\n", r);
 
-    // draw_rectangle(left_paddle_x, left_paddle_y, PADDLE_WIDTH, PADDLE_HEIGHT, 0xFFFFFF);   // // Draw left paddle White color
-    // draw_rectangle(right_paddle_x, right_paddle_y, PADDLE_WIDTH, PADDLE_HEIGHT, 0xFFFFFF); // // Draw right paddle White color
+    draw_rectangle(coords.left_paddle_x, coords.left_paddle_y, PADDLE_WIDTH, PADDLE_HEIGHT, 0xFFFFFF);
+    draw_rectangle(coords.right_paddle_x, coords.right_paddle_y, PADDLE_WIDTH, PADDLE_HEIGHT, 0xFFFFFF);
     // draw_circle(ball_x, ball_y, BALL_SIZE / 2, 0xFFFFFF); // Draw ball White color
 
     syscall_framebuffer_push(); // Update the display
@@ -94,14 +95,15 @@ int is_esc_pressed()
     return 0;
 }
 
-// void draw_rectangle(int x, int y, int width, int height, int color)
-// {
-//     printf("Welcome to draw_rectangle\n");
-//     fb_hline(color, x, x + width, y);          // Top line
-//     fb_hline(color, x, x + width, y + height); // Bottom line
-//     fb_vline(color, y, y + height, x);         // Left line
-//     fb_vline(color, y, y + height, x + width); // Right line
-// }
+void draw_rectangle(int x, int y, int width, int height, int color)
+{
+    // Iterate over each row in the rectangle's height
+    for (int currentY = y; currentY < y + height; currentY++) {
+        // Draw a horizontal line across the width of the rectangle at the current y-coordinate
+        fb_hline(color, x, x + width, currentY);
+    }
+}
+
 
 // void plot_circle_points(int cx, int cy, int x, int y, int color) {
 //     framebuffer_putpixel(color, cx + x, cy + y);

@@ -6,8 +6,14 @@
 #define PADDLE_HEIGHT 50
 #define BALL_SIZE 10
 
+typedef struct {
+    int left_paddle_x, left_paddle_y;
+    int right_paddle_x, right_paddle_y;
+    int ball_x, ball_y;
+} GameCoordinates;
+
 // Function to initialize the game
-int init_game(void);
+GameCoordinates init_game(void);
 
 // Function to start the game loop
 void start_game(void);
@@ -19,7 +25,7 @@ void handle_game_input(void);
 void update_game_state(void);
 
 // Function to render the game graphics
-void render_game(void);
+void render_game(GameCoordinates);
 
 void draw_rectangle(int x, int y, int width, int height, int color);
 void draw_circle(int cx, int cy, int radius, int color);
