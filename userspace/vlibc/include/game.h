@@ -27,8 +27,8 @@ void update_game_state(void);
 // Function to render the game graphics
 void render_game(GameCoordinates);
 
-void draw_rectangle(int x, int y, int width, int height, int color);
-void draw_circle(int cx, int cy, int radius, int color);
+void draw_paddle(int x, int y, int width, int height, int color);
+void draw_ball(int cx, int cy, int radius, int color);
 int is_esc_pressed();
 
 #endif // GAME_H

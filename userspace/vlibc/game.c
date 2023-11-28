@@ -6,14 +6,11 @@
 #include <stdio.h>
 
 extern struct frame_buffer_info_type current_fb;
-// int left_paddle_x = 30, left_paddle_y;
-// int right_paddle_x, right_paddle_y;
-// int ball_x, ball_y;
 
 GameCoordinates init_game(void) {
     GameCoordinates coords;
 
-    printf("Welcome to init_game\n");
+    // printf("Welcome to init_game\n");
     // Retrieve the framebuffer dimensions and depth using syscalls
     int fb_width = fb_get_width();
     int fb_height = fb_get_height();
@@ -44,22 +41,22 @@ GameCoordinates init_game(void) {
 void start_game(void)
 {
     GameCoordinates gameCoords;
-    printf("Welcome to start_game\n");
+    // printf("Welcome to start_game\n");
     gameCoords = init_game();
-    printf("Entering infinite while of start_game\n");
-    //while (1)
-    //{
+    // printf("Entering infinite while of start_game\n");
+    while (1)
+    {
         // handle_game_input();
         // update_game_state();
         render_game(gameCoords);
 
         delay(5000);
         // Check for 'ESC' key press to exit the game loop
-        //if (is_esc_pressed())
-        //{
-            //break;
-        //}
-    //}
+        if (is_esc_pressed())
+        {
+            break;
+        }
+    }
 }
 
 void handle_game_input(void)
@@ -81,9 +78,9 @@ void render_game(GameCoordinates coords)
     if (r)
         printf("return value fb_clear_screen: %d\n", r);
 
-    draw_rectangle(coords.left_paddle_x, coords.left_paddle_y, PADDLE_WIDTH, PADDLE_HEIGHT, 0xFFFFFF);
-    draw_rectangle(coords.right_paddle_x, coords.right_paddle_y, PADDLE_WIDTH, PADDLE_HEIGHT, 0xFFFFFF);
-    // draw_circle(ball_x, ball_y, BALL_SIZE / 2, 0xFFFFFF); // Draw ball White color
+    draw_paddle(coords.left_paddle_x, coords.left_paddle_y, PADDLE_WIDTH, PADDLE_HEIGHT, 0xFFFFFF);
+    draw_paddle(coords.right_paddle_x, coords.right_paddle_y, PADDLE_WIDTH, PADDLE_HEIGHT, 0xFFFFFF);
+    draw_ball(coords.ball_x, coords.ball_y, BALL_SIZE / 2, 0xFFFFFF); // Draw ball White color
 
     syscall_framebuffer_push(); // Update the display
 }
@@ -95,7 +92,7 @@ int is_esc_pressed()
     return 0;
 }
 
-void draw_rectangle(int x, int y, int width, int height, int color)
+void draw_paddle(int x, int y, int width, int height, int color)
 {
     // Iterate over each row in the rectangle's height
     for (int currentY = y; currentY < y + height; currentY++) {
@@ -105,32 +102,39 @@ void draw_rectangle(int x, int y, int width, int height, int color)
 }
 
 
-// void plot_circle_points(int cx, int cy, int x, int y, int color) {
-//     framebuffer_putpixel(color, cx + x, cy + y);
-//     framebuffer_putpixel(color, cx - x, cy + y);
-//     framebuffer_putpixel(color, cx + x, cy - y);
-//     framebuffer_putpixel(color, cx - x, cy - y);
-//     framebuffer_putpixel(color, cx + y, cy + x);
-//     framebuffer_putpixel(color, cx - y, cy + x);
-//     framebuffer_putpixel(color, cx + y, cy - x);
-//     framebuffer_putpixel(color, cx - y, cy - x);
-// }
+void plot_circle_points(int cx, int cy, int x, int y, int color) {
+    fb_putpixel(color, cx + x, cy + y);printf("(%d,%d)\t",cx+x,cy+y);
+    fb_putpixel(color, cx - x, cy + y);printf("(%d,%d)\t",cx-x,cy+y);
+    fb_putpixel(color, cx + x, cy - y);printf("(%d,%d)\t",cx+x,cy-y);
+    fb_putpixel(color, cx - x, cy - y);printf("(%d,%d)\t",cx-x,cy-y);
+    fb_putpixel(color, cx + y, cy + x);printf("(%d,%d)\t",cx+y,cy+x);
+    fb_putpixel(color, cx - y, cy + x);printf("(%d,%d)\t",cx-y,cy+x);
+    fb_putpixel(color, cx + y, cy - x);printf("(%d,%d)\t",cx+y,cy-x);
+    fb_putpixel(color, cx - y, cy - x);printf("(%d,%d)\n",cx-y,cy-x);
+}
 
-// void draw_circle(int cx, int cy, int radius, int color) {
-//     int x = 0, y = radius, p = (5 - radius*4)/4;
-//     plot_circle_points(cx, cy, x, y, color);
+void plot_circle_lines(int cx, int cy, int x, int y, int color) {
+    fb_hline(color, cx - x, cx + x, cy + y); // Draw line in upper hemisphere
+    fb_hline(color, cx - x, cx + x, cy - y); // Draw line in lower hemisphere
+}
 
-//     while (x < y) {
-//         x++;
-//         if (p < 0) {
-//             p += 2*x+1;
-//         } else {
-//             y--;
-//             p += 2*(x-y)+1;
-//         }
-//         plot_circle_points(cx, cy, x, y, color);
-//     }
-// }
+
+
+void draw_ball(int cx, int cy, int radius, int color) {
+    int x = 0, y = radius, p = (5 - radius*4)/4;
+    plot_circle_points(cx, cy, x, y, color);
+
+    while (x < y) {
+        x++;
+        if (p < 0) {
+            p += 2*x+1;
+        } else {
+            y--;
+            p += 2*(x-y)+1;
+        }
+        plot_circle_points(cx, cy, x, y, color);
+    }
+}
 
 void delay(int milliseconds)
 {
