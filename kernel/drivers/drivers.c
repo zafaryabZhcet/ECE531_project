@@ -9,6 +9,7 @@
 #include "drivers/serial/serial.h"
 #include "drivers/framebuffer/framebuffer.h"
 #include "drivers/framebuffer/framebuffer_console.h"
+#include "drivers/keyboard/ps2-keyboard.h"
 
 void drivers_init_all(void) {
 
@@ -38,5 +39,6 @@ void drivers_init_all(void) {
 	framebuffer_console_init();
 
 	serial_enable_interrupts();
+	ps2_keyboard_init();
 
 }

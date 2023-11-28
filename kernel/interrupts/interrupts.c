@@ -147,6 +147,12 @@ void interrupt_handler_c(void) {
 			handled++;
 		}
 
+		// check if Keyboard interrupt
+		if (basic_pending & 0X200){
+			ps2_interrupt_handler();
+			handled++;
+		}
+
 		if (!handled) {
 			printk("Unknown interrupt happened %x!\n",basic_pending);
 			return;

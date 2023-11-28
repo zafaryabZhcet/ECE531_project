@@ -69,7 +69,7 @@
 #include <sys/types.h>
 
 #include <netinet/in.h>	/* Consts & structs defined by the internet system */
-#include "../kernel/version.h"
+// #include "../kernel/version.h"
 
 
 /* good old times without autoconf... */

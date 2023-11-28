@@ -4,6 +4,7 @@
  *
  *	Modeled on the Linux GPIO interface
  */
+#include<stdint.h>
 
 int32_t gpio_request(uint32_t which_one, char *string);
 int gpio_direction_input(int which_one);

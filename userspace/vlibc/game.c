@@ -103,14 +103,14 @@ void draw_paddle(int x, int y, int width, int height, int color)
 
 
 void plot_circle_points(int cx, int cy, int x, int y, int color) {
-    fb_putpixel(color, cx + x, cy + y);printf("(%d,%d)\t",cx+x,cy+y);
-    fb_putpixel(color, cx - x, cy + y);printf("(%d,%d)\t",cx-x,cy+y);
-    fb_putpixel(color, cx + x, cy - y);printf("(%d,%d)\t",cx+x,cy-y);
-    fb_putpixel(color, cx - x, cy - y);printf("(%d,%d)\t",cx-x,cy-y);
-    fb_putpixel(color, cx + y, cy + x);printf("(%d,%d)\t",cx+y,cy+x);
-    fb_putpixel(color, cx - y, cy + x);printf("(%d,%d)\t",cx-y,cy+x);
-    fb_putpixel(color, cx + y, cy - x);printf("(%d,%d)\t",cx+y,cy-x);
-    fb_putpixel(color, cx - y, cy - x);printf("(%d,%d)\n",cx-y,cy-x);
+    fb_putpixel(color, cx + x, cy + y);//printf("(%d,%d)\t",cx+x,cy+y);
+    fb_putpixel(color, cx - x, cy + y);//printf("(%d,%d)\t",cx-x,cy+y);
+    fb_putpixel(color, cx + x, cy - y);//printf("(%d,%d)\t",cx+x,cy-y);
+    fb_putpixel(color, cx - x, cy - y);//printf("(%d,%d)\t",cx-x,cy-y);
+    fb_putpixel(color, cx + y, cy + x);//printf("(%d,%d)\t",cx+y,cy+x);
+    fb_putpixel(color, cx - y, cy + x);//printf("(%d,%d)\t",cx-y,cy+x);
+    fb_putpixel(color, cx + y, cy - x);//printf("(%d,%d)\t",cx+y,cy-x);
+    fb_putpixel(color, cx - y, cy - x);//printf("(%d,%d)\n",cx-y,cy-x);
 }
 
 void plot_circle_lines(int cx, int cy, int x, int y, int color) {

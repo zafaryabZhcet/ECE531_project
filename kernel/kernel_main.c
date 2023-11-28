@@ -22,9 +22,6 @@
 /* Initrd hack */
 #include "../userspace/initrd.h"
 
-/* Homework 9 */
-#include "version.h"
-
 
 void print_boot_message(){
 	char *color[] = {
@@ -98,7 +95,7 @@ void kernel_main(uint32_t r0, uint32_t r1, uint32_t r2,
 
 	/* Print boot message */
 	printk("ECE531 OS\n");
-	printk("Version %s\n\n",VERSION);
+	printk("Version 9\n\n");
 
 	/* Print model info */
 	hardware_print_model(r1);
