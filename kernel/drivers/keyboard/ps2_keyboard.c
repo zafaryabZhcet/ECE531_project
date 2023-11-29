@@ -25,7 +25,7 @@ int gpio_data = 24;
 static unsigned keyup = 0;
 static unsigned escape = 0;
 static unsigned pause = 0;
-static int esc_key_pressed = 0; //for game exiting logic
+static volatile int esc_key_pressed = 0; //for game exiting logic
 
 
 #define K_ESC	0x1b
