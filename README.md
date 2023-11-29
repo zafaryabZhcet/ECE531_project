@@ -19,5 +19,3 @@
 - `kernel/drivers/keyboard/Makefile`
 - `kernel/drivers/driver.c`: Added keyboard as default call
 - `kernel/interrupts/interrupts.c`: Added custom interrupt check for keyboard
-- `kernel/drivers/timer/sp804_timer.c`: modified to include non_blocking_delay
-- `kernel/include/drivers/timer/timer.h`: included the new function
