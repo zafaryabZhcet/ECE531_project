@@ -110,11 +110,7 @@ void translate_key(uint32_t key, int down) {
 	(void)alt_state;
 
 	ascii=translate[key];
-    //for game exiting logic
-    if (ascii == K_ESC)
-    {
-        esc_key_pressed = 1;
-    }
+    
 
 	if (ascii==K_ALT) {
 		if (down) alt_state=1;
@@ -157,8 +153,11 @@ void translate_key(uint32_t key, int down) {
 }
 
 //for game exiting logic
-int is_esc_pressed() {
-    return esc_key_pressed;
+int is_esc_pressed(void) {
+    printk("is_esc_pressed says: %d\n", esc_key_pressed);
+    int state =esc_key_pressed;
+    esc_key_pressed = 0;
+    return state;
 }
 
 /* Handle GPIO interrupt */
@@ -260,6 +259,13 @@ int ps2_interrupt_handler(void) {
 		escape = 0;
 	}
 
+    //for game exiting logic
+    if (translate[key] == K_ESC)
+    {
+        esc_key_pressed = 1;
+        printk("Handler says esc_key_pressed: %d\n", esc_key_pressed);
+    }
+    
 	/* Translate key and push to console */
 	translate_key(key,!keyup);
 	keyup=0;
