@@ -2,7 +2,7 @@
 
 ## Files that I Edited or Added
 
-- `userspace>vlibc>game.c`
+- `userspace>vlibc>game.c`: Keyboard interrupt not working in the infinite loop of game.c
 - `userspace>vlib>include>game.h`
 - `userspace>vlibc>Makefile`
 - `userpace>shell.c`
