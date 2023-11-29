@@ -61,7 +61,7 @@ void start_game(void)
 void handle_game_input(void)
 {
     // Handle inputs (keyboard, GPIO, etc.)
-    // This function will depend on your input handling implementation
+    
 }
 
 void update_game_state(void)

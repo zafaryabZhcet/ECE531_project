@@ -146,7 +146,7 @@ void translate_key(uint32_t key, int down) {
 
     //for game exiting logic
     esc_key_pressed = 0;
-    if (translate[key] == 'q')
+    if (ascii == 'q')
     {
         esc_key_pressed = 1;
     }
