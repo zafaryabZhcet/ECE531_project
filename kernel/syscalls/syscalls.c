@@ -272,6 +272,9 @@ uint32_t swi_handler_c(
 			printk("SYSCALL_KB_ESC_PRESSED: %d\n", result);
 			return result;
 			break;
+
+		case SYSCALL_GET_CURRENT_TIME:
+			return sys_get_current_time();
 #if 0
 		case SYSCALL_TB1:
 			result=framebuffer_tb1();

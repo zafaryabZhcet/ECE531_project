@@ -15,3 +15,5 @@ uint32_t time_since_boot(void);
 uint32_t ticks_since_boot(void);
 
 int32_t clock_gettime(uint32_t clk_id,struct timespec *t);
+
+uint32_t sys_get_current_time (void);

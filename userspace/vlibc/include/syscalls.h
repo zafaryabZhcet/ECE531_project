@@ -250,7 +250,7 @@ int statfs(const char *path, struct statfs *buf);
 #define __NR_FB_VLINE        	8302
 #define __NR_FB_CLEAR        	8303
 #define __NR_FB_PUSH			8304
-int syscall_framebuffer_push();
+int syscall_framebuffer_push(void);
 int fb_clear_screen(int color);
 int fb_putpixel(int color, int x, int y);
 int fb_vline(int color, int y0, int y1, int x);
@@ -260,10 +260,14 @@ int fb_hline(int color, int x0, int x1, int y);
 #define __NR_FB_GET_WIDTH  		8400
 #define __NR_FB_GET_HEIGHT 		8401
 #define __NR_FB_GET_DEPTH       8402
-int fb_get_depth();
-int fb_get_height();
-int fb_get_width() ;
+int fb_get_depth(void);
+int fb_get_height(void);
+int fb_get_width(void) ;
 
 //Keyboard
 #define __NR_KB_ESC_PRESSED 	8500
-int kb_esc_pressed();
+int kb_esc_pressed(void);
+
+//timer
+#define __NR_GET_CURRENT_TIME	8600
+int get_current_time(void);

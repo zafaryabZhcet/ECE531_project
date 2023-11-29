@@ -48,7 +48,7 @@ void start_game(void)
     {
         
         render_game(gameCoords);
-        delay(500);
+        nb_delay(500);
         // Check for 'ESC' key press to exit the game loop
         if (kb_esc_pressed())
         {
@@ -138,4 +138,9 @@ void delay(int milliseconds)
         for (j = 0; j < 10000; j++)
         {
         }
+}
+
+void nb_delay(int millisecs){
+    int start_time = get_current_time();
+    while ((get_current_time() - start_time) < millisecs){}
 }

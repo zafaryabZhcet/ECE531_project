@@ -13,3 +13,8 @@ int32_t times(struct tms *buf) {
 
 	return 0;
 }
+
+#include "time/time.h"
+uint32_t sys_get_current_time(void) {
+    return tick_counter;
+}

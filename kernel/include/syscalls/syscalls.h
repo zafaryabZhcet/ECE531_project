@@ -56,3 +56,6 @@
 
 // Keyboard
 #define SYSCALL_KB_ESC_PRESSED  8500
+
+//timer
+#define SYSCALL_GET_CURRENT_TIME    8600
