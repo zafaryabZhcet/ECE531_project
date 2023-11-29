@@ -46,14 +46,15 @@ void start_game(void)
     // printf("Entering infinite while of start_game\n");
     while (1)
     {
-        // handle_game_input();
-        // update_game_state();
+        
         render_game(gameCoords);
 
         delay(5000);
         // Check for 'ESC' key press to exit the game loop
         if (kb_esc_pressed())
         {
+            fb_clear_screen(0);
+            syscall_framebuffer_push();
             break;
         }
     }
@@ -85,12 +86,7 @@ void render_game(GameCoordinates coords)
     syscall_framebuffer_push(); // Update the display
 }
 
-// Implement is_esc_pressed() based on your input system
-int is_esc_pressed()
-{
-    // Return 1 if ESC key is pressed
-    return 0;
-}
+
 
 void draw_paddle(int x, int y, int width, int height, int color)
 {
