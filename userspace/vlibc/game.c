@@ -52,7 +52,7 @@ void start_game(void)
 
         delay(5000);
         // Check for 'ESC' key press to exit the game loop
-        if (is_esc_pressed())
+        if (kb_esc_pressed())
         {
             break;
         }

@@ -32,7 +32,7 @@
 #include "syscalls/nanosleep.h"
 
 #include "memory/memory.h"
-
+#include "drivers/keyboard/ps2-keyboard.h"
 
 extern int blinking_enabled;
 extern struct frame_buffer_info_type current_fb;
@@ -255,14 +255,21 @@ uint32_t swi_handler_c(
 		case SYSCALL_FB_GET_WIDTH:
 			// printk("current_fb_phys_x : %d\n",current_fb.phys_x);
             return current_fb.phys_x;
+			break;
         
         case SYSCALL_FB_GET_HEIGHT:
 			// printk("current_fb_phys_y : %d\n",current_fb.phys_y);
             return current_fb.phys_y;
+			break;
 
         case SYSCALL_FB_GET_DEPTH:
 			// printk("current_fb_depth : %d\n",current_fb.depth);
             return current_fb.depth;
+			break;
+		
+		case SYSCALL_KB_ESC_PRESSED:
+			return is_esc_pressed();
+			break;
 #if 0
 		case SYSCALL_TB1:
 			result=framebuffer_tb1();

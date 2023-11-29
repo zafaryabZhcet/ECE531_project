@@ -521,3 +521,15 @@ int fb_get_depth() {
     return r0;
 }
 
+int kb_esc_pressed(){
+	register long r7 __asm__("r7") = __NR_KB_ESC_PRESSED;
+	register long r0 __asm__("r0");
+    
+	asm volatile(
+		"svc #0\n"
+		: "=r"(r0)
+		: "r"(r7)
+		: "memory"
+	);
+	return r0;
+}

@@ -263,3 +263,6 @@ int fb_hline(int color, int x0, int x1, int y);
 int fb_get_depth();
 int fb_get_height();
 int fb_get_width() ;
+
+//Keyboard
+#define __NR_KB_ESC_PRESSED 	8500
