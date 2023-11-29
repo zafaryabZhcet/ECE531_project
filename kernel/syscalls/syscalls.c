@@ -268,7 +268,9 @@ uint32_t swi_handler_c(
 			break;
 		
 		case SYSCALL_KB_ESC_PRESSED:
-			return is_esc_pressed();
+			int result = is_esc_pressed();
+			printk("SYSCALL_KB_ESC_PRESSED: %d\n", result);
+			return result;
 			break;
 #if 0
 		case SYSCALL_TB1:

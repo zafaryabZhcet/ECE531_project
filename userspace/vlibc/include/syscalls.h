@@ -266,3 +266,4 @@ int fb_get_width() ;
 
 //Keyboard
 #define __NR_KB_ESC_PRESSED 	8500
+int kb_esc_pressed();

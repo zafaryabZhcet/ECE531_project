@@ -48,8 +48,6 @@ void start_game(void)
     {
         
         render_game(gameCoords);
-
-        delay(5000);
         // Check for 'ESC' key press to exit the game loop
         if (kb_esc_pressed())
         {

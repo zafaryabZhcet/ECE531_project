@@ -101,7 +101,7 @@ K_RSV,  K_RSV,  K_PGDN, K_RSV,  K_PRINT,K_PGUP, K_RSV,  K_RSV
 void translate_key(uint32_t key, int down) {
 
 	uint32_t ascii;
-
+    
 	static uint32_t shift_state=0;
 	static uint32_t alt_state=0;
 	static uint32_t ctrl_state=0;
@@ -145,9 +145,10 @@ void translate_key(uint32_t key, int down) {
 	}
 
     //for game exiting logic
-    if (translate[key] == K_ESC)
+    esc_key_pressed = 0;
+    if (translate[key] == 'q')
     {
-        esc_key_pressed = down;
+        esc_key_pressed = 1;
     }
 
 	console_insert_char(ascii);
