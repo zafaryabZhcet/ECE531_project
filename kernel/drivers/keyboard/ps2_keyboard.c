@@ -1,6 +1,7 @@
 /*
  * ps2-keyboard.c -- vmwOS driver for ps2pi PS/2 keyboard/GPIO device
  *	by Vince Weaver <vincent.weaver _at_ maine.edu>
+ * Added is_esc_pressed() and few lines for game logic
  */
 
 #include <stdint.h>
@@ -25,7 +26,7 @@ int gpio_data = 24;
 static unsigned keyup = 0;
 static unsigned escape = 0;
 static unsigned pause = 0;
-static volatile int esc_key_pressed = 0; //for game exiting logic
+volatile int esc_key_pressed = 0; //for game exiting logic
 
 
 #define K_ESC	0x1b
@@ -145,7 +146,6 @@ void translate_key(uint32_t key, int down) {
 	}
 
     //for game exiting logic
-    esc_key_pressed = 0;
     if (ascii == 'q')
     {
         esc_key_pressed = 1;
