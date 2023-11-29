@@ -110,6 +110,11 @@ void translate_key(uint32_t key, int down) {
 	(void)alt_state;
 
 	ascii=translate[key];
+    //for game exiting logic
+    if (ascii == K_ESC)
+    {
+        esc_key_pressed = 1;
+    }
 
 	if (ascii==K_ALT) {
 		if (down) alt_state=1;
@@ -145,11 +150,7 @@ void translate_key(uint32_t key, int down) {
 		}
 	}
 
-    //for game exiting logic
-    if (ascii == 'q')
-    {
-        esc_key_pressed = 1;
-    }
+    
 
 	console_insert_char(ascii);
 
