@@ -217,7 +217,7 @@ void nb_delay(int millisecs){
 }
 
 
-#include "../../kernel/drivers/framebuffer/c_font.h"
+#include "../../kernel/drivers/framebuffer/c_font.h"  
 
 void draw_text(int x, int y, const char* text, int color) {
     int orig_x = x;
@@ -228,7 +228,7 @@ void draw_text(int x, int y, const char* text, int color) {
             continue;
         }
         for (int row = 0; row < 16; row++) {
-            unsigned char character_row = default_font[text[i] * 16 + row];
+            unsigned char character_row = default_font[(unsigned char)text[i]][row];
             for (int col = 0; col < 8; col++) {
                 if (character_row & (1 << (7 - col))) {
                     fb_putpixel(color, x + col, y + row);
@@ -238,3 +238,4 @@ void draw_text(int x, int y, const char* text, int color) {
         x += 8;  // Move X to the next character position
     }
 }
+
