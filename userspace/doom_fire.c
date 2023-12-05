@@ -33,12 +33,10 @@ struct scrolltext_type {
 };
 
 static struct scrolltext_type scrolltext[NUMCREDITS]={
-	{ 0, 0,   0, (640-(25*8*2))/2, 445, 15, "A VMW SOFTWARE PRODUCTION"},
-	{ 0, 100, 0, (640-(12*8*2))/2, 445, 20, "CODE: DEATER"},
-	{ 0, 200, 0, (640-(10*8*2))/2, 445, 25, "MUSIC: DYA"},
-	{ 0, 300, 0, (640-(22*8*2))/2, 445, 30, "THANKS: TEAM28 / PIFOX"},
-	{ 0, 400, 0, (640-(23*8*2))/2, 445, 35, "THANKS: FABIEN SANGLARD"},
-	{ 0, 500, 0, (640-(19*8*2))/2, 445, 15, "THANKS: MPVANIERSEL"},
+	
+	{ 0, 200, 0, (640-(10*8*2))/2, 445, 25, "ZAFARYAB"},
+	{ 0, 300, 0, (640-(22*8*2))/2, 445, 30, "ABHILASH"},
+	{ 0, 400, 0, (640-(23*8*2))/2, 445, 35, "SAHER"},
 };
 
 
