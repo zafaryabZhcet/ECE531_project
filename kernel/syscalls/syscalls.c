@@ -266,7 +266,7 @@ uint32_t swi_handler_c(
 		
 		case SYSCALL_KB_ESC_PRESSED:
 			int result = is_esc_pressed();
-			printk("SYSCALL_KB_ESC_PRESSED: %d\n", result);
+			// printk("SYSCALL_KB_ESC_PRESSED: %d\n", result);
 			return result;
 			break;
 
@@ -275,6 +275,9 @@ uint32_t swi_handler_c(
 
 		case SYSCALL_GET_CURRENT_TIME:
 			return sys_get_current_time();
+
+		case SYSCALL_SET_GAME_ACTIVE:
+			return set_game_active(r0);
 
 		
 #if 0

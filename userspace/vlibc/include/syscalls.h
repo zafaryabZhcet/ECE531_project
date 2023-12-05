@@ -274,3 +274,6 @@ int kb_key_state(uint32_t);
 //timer
 #define __NR_GET_CURRENT_TIME	8600
 int get_current_time(void);
+
+#define __NR_GAME_ACTIVE		8700
+int sys_set_game_active(int);

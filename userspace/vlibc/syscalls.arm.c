@@ -534,14 +534,14 @@ int kb_esc_pressed(){
 	return r0;
 }
 
-int kb_key_state(uint32_t){
+int kb_key_state(uint32_t key){
 	register long r7 __asm__("r7") = __NR_KB_KEY_STATE;
-	register long r0 __asm__("r0");
+	register long r0 __asm__("r0") = key;
 
 	asm volatile(
 		"svc #0\n"
 		: "=r"(r0) 	//output
-		: "r"(r7)	//input
+		: "r"(r7), "r"(r0)	//input
 		: "memory"
 	) ;
 	return r0;
@@ -556,6 +556,19 @@ int get_current_time(){
 		"svc #0\n"
 		: "=r"(r0)
 		: "r"(r7)
+		: "memory"
+	);
+	return r0;
+}
+
+int sys_set_game_active(int i){
+	register long r7 __asm__("r7") = __NR_GAME_ACTIVE;
+	register long r0 __asm__("r0") = i;
+    
+	asm volatile(
+		"svc #0\n"
+		: "=r"(r0)
+		: "r"(r7), "r"(r0)
 		: "memory"
 	);
 	return r0;

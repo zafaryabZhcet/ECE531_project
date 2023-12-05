@@ -61,3 +61,5 @@
 //timer
 #define SYSCALL_GET_CURRENT_TIME    8600
 
+#define SYSCALL_SET_GAME_ACTIVE  8700
+

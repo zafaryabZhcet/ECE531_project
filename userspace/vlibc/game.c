@@ -8,8 +8,8 @@
 extern struct frame_buffer_info_type current_fb;
 
 #define PADDLE_SPEED    5
-#define BALL_SPEED_X    2
-#define BALL_SPEED_Y    2
+#define BALL_SPEED_X    1
+#define BALL_SPEED_Y    1
 #define K_UP            0xa2
 #define K_DOWN          0xa3
 
@@ -50,17 +50,19 @@ GameCoordinates init_game(void) {
 
 void start_game(void) {
     GameCoordinates gameCoords = init_game();
+    sys_set_game_active(1);
 
     while (1) {
         handle_game_input(&gameCoords);
         update_game_state(&gameCoords);
         render_game(gameCoords);
 
-        nb_delay(500);  //smaller the smoother
+        nb_delay(20);  //smaller the smoother
 
         if (kb_esc_pressed()) {
             fb_clear_screen(0);
             syscall_framebuffer_push();
+            sys_set_game_active(0);
             break;
         }
     }
@@ -73,7 +75,7 @@ void update_game_state(GameCoordinates *coords) {
     coords->ball_y += coords->ball_velocity_y;
 
     // Collision with top and bottom
-    if (coords->ball_y - BALL_RADIUS <= 0 || coords->ball_y - BALL_RADIUS >= fb_get_height()) {
+    if (coords->ball_y - BALL_RADIUS <= 0 || coords->ball_y + BALL_RADIUS >= fb_get_height()) {
         coords->ball_velocity_y = -coords->ball_velocity_y;
     }
 
@@ -115,6 +117,8 @@ void handle_game_input(GameCoordinates *coords) {
     int right_paddle_up = kb_key_state(K_UP);      
     int right_paddle_down = kb_key_state(K_DOWN);  
     int screen_height = fb_get_height();
+
+    // printf("kb_key_state checked: %d %d %d %d\n", left_paddle_up, left_paddle_down, right_paddle_up, right_paddle_down);
 
     // Handle left paddle movement
     if (left_paddle_up && coords->left_paddle_y > 0) {
