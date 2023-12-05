@@ -1,23 +1,26 @@
 // game.c
 
 #include "./include/game.h"
-#include "../../kernel/include/drivers/framebuffer/framebuffer.h" // Include your framebuffer and other libraries
+#include "../../kernel/include/drivers/framebuffer/framebuffer.h" // to include framebuffer and other libraries
 #include "syscalls.h"
 #include <stdio.h>
 
 extern struct frame_buffer_info_type current_fb;
 
+#define PADDLE_SPEED    5
+#define BALL_SPEED_X    2
+#define BALL_SPEED_Y    2
+#define K_UP            0xa2
+#define K_DOWN          0xa3
+
 GameCoordinates init_game(void) {
     GameCoordinates coords;
 
-    // printf("Welcome to init_game\n");
-    // Retrieve the framebuffer dimensions and depth using syscalls
     int fb_width = fb_get_width();
     int fb_height = fb_get_height();
     
     if (fb_width < 0 || fb_height < 0) {
         printf("Error: Failed to get framebuffer width\n");
-        // Handle the error, maybe by returning an empty struct or setting a flag
         return coords;
     }
     printf("Framebuffer dimensions (w*h) = %d x %d\n", fb_width, fb_height);
@@ -32,26 +35,30 @@ GameCoordinates init_game(void) {
     coords.ball_x = fb_width / 2;
     coords.ball_y = fb_height / 2;
 
+    coords.ball_velocity_x = BALL_SPEED_X;
+    coords.ball_velocity_y = BALL_SPEED_Y;
+
+    coords.score_left = 0;
+    coords.score_right = 0;
+    coords.game_speed = 1;
+
     printf("Left Paddle: (%d,%d)\tRight Paddle: (%d,%d)\tBall: (%d,%d)\nReturning from init_game()\n", coords.left_paddle_x, coords.left_paddle_y, coords.right_paddle_x, coords.right_paddle_y, coords.ball_x, coords.ball_y);
 
     return coords;
 }
 
 
-void start_game(void)
-{
-    GameCoordinates gameCoords;
-    // printf("Welcome to start_game\n");
-    gameCoords = init_game();
-    // printf("Entering infinite while of start_game\n");
-    while (1)
-    {
-        
+void start_game(void) {
+    GameCoordinates gameCoords = init_game();
+
+    while (1) {
+        handle_game_input(&gameCoords);
+        update_game_state(&gameCoords);
         render_game(gameCoords);
-        nb_delay(500);
-        // Check for 'ESC' key press to exit the game loop
-        if (kb_esc_pressed())
-        {
+
+        nb_delay(500);  //smaller the smoother
+
+        if (kb_esc_pressed()) {
             fb_clear_screen(0);
             syscall_framebuffer_push();
             break;
@@ -59,28 +66,88 @@ void start_game(void)
     }
 }
 
-void handle_game_input(void)
-{
-    // Handle inputs (keyboard, GPIO, etc.)
-    
+
+void update_game_state(GameCoordinates *coords) {
+    // Move the ball
+    coords->ball_x += coords->ball_velocity_x;
+    coords->ball_y += coords->ball_velocity_y;
+
+    // Collision with top and bottom
+    if (coords->ball_y - BALL_RADIUS <= 0 || coords->ball_y - BALL_RADIUS >= fb_get_height()) {
+        coords->ball_velocity_y = -coords->ball_velocity_y;
+    }
+
+    // Collision with paddles
+    if ((coords->ball_x - BALL_RADIUS <= coords->left_paddle_x + PADDLE_WIDTH && 
+         coords->ball_y >= coords->left_paddle_y && 
+         coords->ball_y <= coords->left_paddle_y + PADDLE_HEIGHT) ||
+        (coords->ball_x + BALL_RADIUS >= coords->right_paddle_x && 
+         coords->ball_y >= coords->right_paddle_y && 
+         coords->ball_y <= coords->right_paddle_y + PADDLE_HEIGHT)) {
+        coords->ball_velocity_x = -coords->ball_velocity_x;
+    }
+
+    // Check for scoring
+    if (coords->ball_x < 0) {
+        coords->score_right++;
+        coords->ball_x = fb_get_width() / 2;
+        coords->ball_y = fb_get_height() / 2;
+    } else if (coords->ball_x > fb_get_width()) {
+        coords->score_left++;
+        coords->ball_x = fb_get_width() / 2;
+        coords->ball_y = fb_get_height() / 2;
+    }
+
+    // Increase game speed after every 5 points
+    if ((coords->score_left + coords->score_right) % 5 == 0) {
+        coords->game_speed++;
+    }
+
+    // Adjust ball speed based on game speed
+    coords->ball_velocity_x = BALL_SPEED_X * coords->game_speed;
+    coords->ball_velocity_y = BALL_SPEED_Y * coords->game_speed;
 }
 
-void update_game_state(void)
-{
-    // Update your game's state (e.g., move objects, check for collisions)
+
+void handle_game_input(GameCoordinates *coords) {
+    int left_paddle_up = kb_key_state('w');
+    int left_paddle_down = kb_key_state('s');
+    int right_paddle_up = kb_key_state(K_UP);      
+    int right_paddle_down = kb_key_state(K_DOWN);  
+    int screen_height = fb_get_height();
+
+    // Handle left paddle movement
+    if (left_paddle_up && coords->left_paddle_y > 0) {
+        coords->left_paddle_y -= PADDLE_SPEED;
+    }
+    if (left_paddle_down && coords->left_paddle_y < screen_height - PADDLE_HEIGHT) {
+        coords->left_paddle_y += PADDLE_SPEED;
+    }
+
+    // Handle right paddle movement
+    if (right_paddle_up && coords->right_paddle_y > 0) {
+        coords->right_paddle_y -= PADDLE_SPEED;
+    }
+    if (right_paddle_down && coords->right_paddle_y < screen_height - PADDLE_HEIGHT) {
+        coords->right_paddle_y += PADDLE_SPEED;
+    }
 }
+
 
 void render_game(GameCoordinates coords)
 {
-    // printf("Welcome to render_game\n");
-    // framebuffer_clear_screen(0);    // Clear the screen
     int r=fb_clear_screen(30);
     if (r)
         printf("return value fb_clear_screen: %d\n", r);
 
     draw_paddle(coords.left_paddle_x, coords.left_paddle_y, PADDLE_WIDTH, PADDLE_HEIGHT, 0xFFFFFF);
     draw_paddle(coords.right_paddle_x, coords.right_paddle_y, PADDLE_WIDTH, PADDLE_HEIGHT, 0xFFFFFF);
-    draw_ball(coords.ball_x, coords.ball_y, BALL_SIZE / 2, 0xFFFFFF); // Draw ball White color
+    draw_ball(coords.ball_x, coords.ball_y, BALL_RADIUS, 0xFFFFFF); // Draw ball White color
+
+    // Display scores (you need to implement `draw_text` or similar function)
+    char score_text[50];
+    sprintf(score_text, "Left: %d Right: %d", coords.score_left, coords.score_right);
+    draw_text(10, 10, score_text, 0xFFFFFF); // Modify coordinates and color as needed
 
     syscall_framebuffer_push(); // Update the display
 }
@@ -143,4 +210,27 @@ void delay(int milliseconds)
 void nb_delay(int millisecs){
     int start_time = get_current_time();
     while ((get_current_time() - start_time) < millisecs){}
+}
+
+
+#include "../../kernel/drivers/framebuffer/c_font.h"
+
+void draw_text(int x, int y, const char* text, int color) {
+    int orig_x = x;
+    for (int i = 0; text[i] != '\0'; i++) {
+        if (text[i] == '\n') {
+            y += 16;  // Move to the next line
+            x = orig_x;  // Reset to original X position
+            continue;
+        }
+        for (int row = 0; row < 16; row++) {
+            unsigned char character_row = default_font[text[i] * 16 + row];
+            for (int col = 0; col < 8; col++) {
+                if (character_row & (1 << (7 - col))) {
+                    fb_putpixel(color, x + col, y + row);
+                }
+            }
+        }
+        x += 8;  // Move X to the next character position
+    }
 }

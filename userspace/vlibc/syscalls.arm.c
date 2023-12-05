@@ -534,6 +534,19 @@ int kb_esc_pressed(){
 	return r0;
 }
 
+int kb_key_state(uint32_t){
+	register long r7 __asm__("r7") = __NR_KB_KEY_STATE;
+	register long r0 __asm__("r0");
+
+	asm volatile(
+		"svc #0\n"
+		: "=r"(r0) 	//output
+		: "r"(r7)	//input
+		: "memory"
+	) ;
+	return r0;
+}
+
 
 int get_current_time(){
 	register long r7 __asm__("r7") = __NR_GET_CURRENT_TIME;

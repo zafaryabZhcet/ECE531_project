@@ -253,17 +253,14 @@ uint32_t swi_handler_c(
 			}
 			break;
 		case SYSCALL_FB_GET_WIDTH:
-			// printk("current_fb_phys_x : %d\n",current_fb.phys_x);
             return current_fb.phys_x;
 			break;
         
         case SYSCALL_FB_GET_HEIGHT:
-			// printk("current_fb_phys_y : %d\n",current_fb.phys_y);
             return current_fb.phys_y;
 			break;
 
         case SYSCALL_FB_GET_DEPTH:
-			// printk("current_fb_depth : %d\n",current_fb.depth);
             return current_fb.depth;
 			break;
 		
@@ -273,8 +270,13 @@ uint32_t swi_handler_c(
 			return result;
 			break;
 
+		case SYSCALL_KB_KEY_STATE:
+			return key_state(r0);
+
 		case SYSCALL_GET_CURRENT_TIME:
 			return sys_get_current_time();
+
+		
 #if 0
 		case SYSCALL_TB1:
 			result=framebuffer_tb1();

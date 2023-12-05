@@ -98,6 +98,11 @@ K_INSRT,K_DEL,  K_DOWN, K_RSV,  K_RIGHT,K_UP,   K_RSV,  K_RSV,
 K_RSV,  K_RSV,  K_PGDN, K_RSV,  K_PRINT,K_PGUP, K_RSV,  K_RSV
 };
 
+//for game including key_states
+#define KEY_STATE_UP 0
+#define KEY_STATE_DOWN 1
+
+static int key_states[256] = {[0 ... 255] = KEY_STATE_UP};
 
 void translate_key(uint32_t key, int down) {
 
@@ -130,6 +135,14 @@ void translate_key(uint32_t key, int down) {
 		return;
 	}
 
+	//for game logic to return key_state
+	if (down){
+		key_states[ascii] = KEY_STATE_DOWN;
+	} else{
+		key_states[ascii] = KEY_STATE_UP;
+	}
+
+
 	/* For the time being, only report keycodes at release */
 	if (down) return;
 
@@ -159,6 +172,11 @@ int is_esc_pressed(void) {
     esc_key_pressed = 0;
     return state;
 }
+
+int key_state(uint32_t key) {
+    return key_states[key];
+}
+
 
 /* Handle GPIO interrupt */
 

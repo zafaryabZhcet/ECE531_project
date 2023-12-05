@@ -268,6 +268,9 @@ int fb_get_width(void) ;
 #define __NR_KB_ESC_PRESSED 	8500
 int kb_esc_pressed(void);
 
+#define __NR_KB_KEY_STATE		8501
+int kb_key_state(uint32_t);
+
 //timer
 #define __NR_GET_CURRENT_TIME	8600
 int get_current_time(void);
