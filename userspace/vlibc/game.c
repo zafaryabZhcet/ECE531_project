@@ -8,11 +8,12 @@
 
 extern struct frame_buffer_info_type current_fb;
 
-#define PADDLE_SPEED    5
+#define PADDLE_SPEED    10
 #define BALL_SPEED_X    1
 #define BALL_SPEED_Y    1
 #define K_UP            0xa2
 #define K_DOWN          0xa3
+int  Y_COUNT = 0;
 
 GameCoordinates init_game(void) {
     GameCoordinates coords;
@@ -71,8 +72,10 @@ void start_game(void) {
 
 
 void update_game_state(GameCoordinates *coords) {
+    Y_COUNT+=1;
     // Move the ball
     coords->ball_x += coords->ball_velocity_x;
+    if (Y_COUNT%2 ==0)
     coords->ball_y += coords->ball_velocity_y;
 
     // Collision with top and bottom
@@ -119,7 +122,7 @@ void handle_game_input(GameCoordinates *coords) {
     int right_paddle_down = kb_key_state(K_DOWN);  
     int screen_height = fb_get_height();
 
-    printf("kb_key_state checked: %d %d %d %d\n", left_paddle_up, left_paddle_down, right_paddle_up, right_paddle_down);
+    // printf("kb_key_state checked: %d %d %d %d\n", left_paddle_up, left_paddle_down, right_paddle_up, right_paddle_down);
 
     // Handle left paddle movement
     if (left_paddle_up && coords->left_paddle_y > 0) {
