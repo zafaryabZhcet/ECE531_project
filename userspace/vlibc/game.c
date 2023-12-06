@@ -119,7 +119,7 @@ void handle_game_input(GameCoordinates *coords) {
     int right_paddle_down = kb_key_state(K_DOWN);  
     int screen_height = fb_get_height();
 
-    // printf("kb_key_state checked: %d %d %d %d\n", left_paddle_up, left_paddle_down, right_paddle_up, right_paddle_down);
+    printf("kb_key_state checked: %d %d %d %d\n", left_paddle_up, left_paddle_down, right_paddle_up, right_paddle_down);
 
     // Handle left paddle movement
     if (left_paddle_up && coords->left_paddle_y > 0) {

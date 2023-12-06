@@ -160,7 +160,7 @@ void translate_key(uint32_t key, int down)
 	if (down)
 		return;
 
-	if (!game_active)
+	if (!game_active)	//game logic. do not want to display character pressed during game onto the console.
 	{
 		if ((ascii >= 'a') && (ascii <= 'z'))
 		{
@@ -180,6 +180,8 @@ void translate_key(uint32_t key, int down)
 
 		console_insert_char(ascii);
 	}
+	else
+		key_states[ascii] = KEY_STATE_UP;
 }
 
 /* Handle GPIO interrupt */
