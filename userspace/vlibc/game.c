@@ -236,6 +236,7 @@ void draw_text(int x, int y, const char* text, int color) {
         }
         // uint8_t txt = text[i];
         for (int row = 0; row < 16; row++) {
+            printf("I am in draw_text row loop\n");
              unsigned char character_row = 0xff;
             // unsigned char character_row = default_font[text[i] * 16 + row];
             // unsigned char character_row = default_font[256*row + text[i]];
@@ -243,6 +244,7 @@ void draw_text(int x, int y, const char* text, int color) {
             // printf("CR: %x\n", character_row);
             for (int col = 0; col < 8; col++) {
                 if (character_row & (1 << (7 - col))) {
+                    printf("just above draw_text putpixel");
                     fb_putpixel(color, x + col, y + row);
                 }
             }
