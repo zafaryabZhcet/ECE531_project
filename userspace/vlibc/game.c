@@ -4,6 +4,7 @@
 #include "../../kernel/include/drivers/framebuffer/framebuffer.h" // to include framebuffer and other libraries
 #include "syscalls.h"
 #include <stdio.h>
+#include <stdint.h>
 
 extern struct frame_buffer_info_type current_fb;
 
@@ -151,7 +152,9 @@ void render_game(GameCoordinates coords)
     // Display scores (you need to implement `draw_text` or similar function)
     char score_text[50];
     sprintf(score_text, "Left: %d Right: %d", coords.score_left, coords.score_right);
-    draw_text(10, 10, score_text, 0xFFFFFF); // Modify coordinates and color as needed
+    // sprintf(score_text,"A");
+    // printf("sctxt: %s\n",score_text);
+    draw_text(10, 10, score_text, 0xFFFFFF); 
 
     syscall_framebuffer_push(); // Update the display
 }
@@ -217,25 +220,28 @@ void nb_delay(int millisecs){
 }
 
 
-#include "../../kernel/drivers/framebuffer/c_font.h"  
+#include "../../kernel/drivers/framebuffer/c_font.h"
 
 void draw_text(int x, int y, const char* text, int color) {
     int orig_x = x;
     for (int i = 0; text[i] != '\0'; i++) {
         if (text[i] == '\n') {
-            y += 16;  // Move to the next line
+            y += 18;  // Move to the next line
             x = orig_x;  // Reset to original X position
             continue;
         }
+        uint8_t txt = text[i];
         for (int row = 0; row < 16; row++) {
-            unsigned char character_row = default_font[(unsigned char)text[i]][row];
+            unsigned char character_row = default_font[text[i] * 16 + row];
+            // unsigned char character_row = default_font[256*row + text[i]];
+            // unsigned char character_row = default_font[txt][row];
+            // printf("CR: %x\n", character_row);
             for (int col = 0; col < 8; col++) {
                 if (character_row & (1 << (7 - col))) {
                     fb_putpixel(color, x + col, y + row);
                 }
             }
         }
-        x += 8;  // Move X to the next character position
+        x += 9;  // Move X to the next character position
     }
 }
-

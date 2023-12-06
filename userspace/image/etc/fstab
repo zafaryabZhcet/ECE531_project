@@ -1,4 +1,0 @@
-# fstab file system info
-/dev/ram	/		romfs	ro	0	0
-/dev/loop	/mnt		dos33	rw	0	0
-
