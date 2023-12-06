@@ -149,7 +149,7 @@ void render_game(GameCoordinates coords)
     draw_paddle(coords.right_paddle_x, coords.right_paddle_y, PADDLE_WIDTH, PADDLE_HEIGHT, 0xFFFFFF);
     draw_ball(coords.ball_x, coords.ball_y, BALL_RADIUS, 0xFFFFFF); // Draw ball White color
 
-    // Display scores (you need to implement `draw_text` or similar function)
+    // Display scores
     char score_text[50];
     sprintf(score_text, "Left: %d Right: %d", coords.score_left, coords.score_right);
     // sprintf(score_text,"A");
