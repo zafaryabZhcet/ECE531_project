@@ -5,6 +5,8 @@
 #include "syscalls.h"
 #include <stdio.h>
 #include <stdint.h>
+#include "../../kernel/drivers/framebuffer/c_font.h"
+
 
 extern struct frame_buffer_info_type current_fb;
 
@@ -223,7 +225,6 @@ void nb_delay(int millisecs){
 }
 
 
-#include "../../kernel/drivers/framebuffer/c_font.h"
 
 void draw_text(int x, int y, const char* text, int color) {
     int orig_x = x;
@@ -235,7 +236,8 @@ void draw_text(int x, int y, const char* text, int color) {
         }
         // uint8_t txt = text[i];
         for (int row = 0; row < 16; row++) {
-            unsigned char character_row = default_font[text[i] * 16 + row];
+             unsigned char character_row = 0xff;
+            // unsigned char character_row = default_font[text[i] * 16 + row];
             // unsigned char character_row = default_font[256*row + text[i]];
             // unsigned char character_row = default_font[txt][row];
             // printf("CR: %x\n", character_row);
