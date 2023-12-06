@@ -230,7 +230,7 @@ void draw_text(int x, int y, const char* text, int color) {
             x = orig_x;  // Reset to original X position
             continue;
         }
-        uint8_t txt = text[i];
+        // uint8_t txt = text[i];
         for (int row = 0; row < 16; row++) {
             unsigned char character_row = default_font[text[i] * 16 + row];
             // unsigned char character_row = default_font[256*row + text[i]];
