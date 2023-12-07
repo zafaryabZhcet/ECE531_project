@@ -242,15 +242,15 @@ int ps2_interrupt_handler(void)
 	/* FIXME: should do something useful (request resend?) if invalid */
 	if (message & 0x1)
 	{
-		printk("Invalid start bit %x\n", message);
+		// printk("Invalid start bit %x\n", message);
 	}
 	if (!(message & 0x400))
 	{
-		printk("Invaid stop bit %x\n", message);
+		// printk("Invaid stop bit %x\n", message);
 	}
 	if ((((message & 0x200 >> 8) & 0x1) + (parity & 0x1)) & 0x1)
 	{
-		printk("Parity error %x %x\n", message, parity);
+		// printk("Parity error %x %x\n", message, parity);
 	}
 
 	key = (message >> 1) & 0xff;

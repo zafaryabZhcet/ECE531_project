@@ -13,6 +13,7 @@ typedef struct {
     int ball_velocity_x, ball_velocity_y;
     int score_left, score_right; 
     int game_speed;
+    int game_over;
 } GameCoordinates;
 
 // Function to initialize the game

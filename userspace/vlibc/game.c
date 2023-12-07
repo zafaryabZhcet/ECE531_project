@@ -33,10 +33,10 @@ GameCoordinates init_game(void)
 
     // Initialize the positions of the paddles and the ball
     coords.left_paddle_x = 30;
-    coords.left_paddle_y = (fb_height - PADDLE_HEIGHT) / 2;
+    coords.left_paddle_y = (fb_height -30 - PADDLE_HEIGHT) / 2;
 
     coords.right_paddle_x = fb_width - 30 - PADDLE_WIDTH;
-    coords.right_paddle_y = (fb_height - PADDLE_HEIGHT) / 2;
+    coords.right_paddle_y = (fb_height - 30 - PADDLE_HEIGHT) / 2;
 
     coords.ball_x = fb_width / 2;
     coords.ball_y = fb_height / 2;
@@ -47,6 +47,8 @@ GameCoordinates init_game(void)
     coords.score_left = 0;
     coords.score_right = 0;
     coords.game_speed = 2;
+
+    coords.game_over = 0;
 
     printf("Left Paddle: (%d,%d)\tRight Paddle: (%d,%d)\tBall: (%d,%d)\n\nGAME OVER\n", coords.left_paddle_x, coords.left_paddle_y, coords.right_paddle_x, coords.right_paddle_y, coords.ball_x, coords.ball_y);
 
@@ -66,7 +68,7 @@ void start_game(void)
 
         nb_delay(5); // smaller the smoother
 
-        if (kb_esc_pressed())
+        if (kb_esc_pressed() || gameCoords.game_over)
         {
             fb_clear_screen(0);
             syscall_framebuffer_push();
@@ -79,14 +81,14 @@ void start_game(void)
 void update_game_state(GameCoordinates *coords)
 {
     bool paddle_bounce = false;
-
+    static int bounce_count = 0;
     // Move the ball
     coords->ball_x += coords->ball_velocity_x;
     // coords->ball_x += 10;
     coords->ball_y += coords->ball_velocity_y;
 
     // Collision with top and bottom
-    if (coords->ball_y - BALL_RADIUS <= 0 || coords->ball_y + BALL_RADIUS >= fb_get_height())
+    if (coords->ball_y - BALL_RADIUS <= 30 || coords->ball_y + BALL_RADIUS >= fb_get_height())
     {
         coords->ball_velocity_y = -coords->ball_velocity_y;
     }
@@ -96,8 +98,9 @@ void update_game_state(GameCoordinates *coords)
         (coords->ball_y >= coords->left_paddle_y) &&
         (coords->ball_y <= (coords->left_paddle_y + PADDLE_HEIGHT)))
     {
-        printf("LP\n");
+        // printf("LP\n");
         coords->ball_velocity_x = -coords->ball_velocity_x;
+        paddle_bounce = true;
     }
 
     // Collision with right paddle
@@ -106,37 +109,66 @@ void update_game_state(GameCoordinates *coords)
         (coords->ball_y <= (coords->right_paddle_y + PADDLE_HEIGHT)))
     {
         coords->ball_velocity_x = -coords->ball_velocity_x;
-        printf("\tRP: %d\n", coords->ball_velocity_x);
+        paddle_bounce = true;
+        // printf("\tRP: %d\n", coords->ball_velocity_x);
     }
 
-    // Check for scoring
-    if (coords->ball_x < 0)
-    {
+    // Increase game speed every 6 bounces
+    if (paddle_bounce) {
+        bounce_count++;
+        if (bounce_count % 6 == 0) {
+            coords->game_speed++;
+            coords->ball_velocity_x = (coords->ball_velocity_x > 0 ? 1 : -1) * (BALL_SPEED_X + coords->game_speed);
+            coords->ball_velocity_y = (coords->ball_velocity_y > 0 ? 1 : -1) * (BALL_SPEED_Y + coords->game_speed);
+        }
+    }
+
+    // Check scoring and if game ends
+    check_game_end(coords);
+}
+void check_game_end(GameCoordinates *coords) {
+    // Update scores
+    if (coords->ball_x < 0) {
         coords->score_right++;
-        coords->left_paddle_x = 30;
-        coords->left_paddle_y = (fb_height() - PADDLE_HEIGHT) / 2;
-
-        coords->right_paddle_x = fb_width() - 30 - PADDLE_WIDTH;
-        coords->right_paddle_y = (fb_height() - PADDLE_HEIGHT) / 2;
-    }
-    else if (coords->ball_x > fb_get_width())
-    {
+    } else if (coords->ball_x > fb_get_width()) {
         coords->score_left++;
+    }
+
+    // Reset ball and paddle and game speed if a point is scored
+    if (coords->ball_x < 0 || coords->ball_x > fb_get_width()) {
+        coords->ball_x = fb_get_width() / 2;
+        coords->ball_y = fb_get_height() / 2;
         coords->left_paddle_x = 30;
-        coords->left_paddle_y = (fb_height() - PADDLE_HEIGHT) / 2;
+        coords->left_paddle_y = (fb_get_height() - PADDLE_HEIGHT) / 2;
+        coords->right_paddle_x = fb_get_width() - 30 - PADDLE_WIDTH;
+        coords->right_paddle_y = (fb_get_height() - PADDLE_HEIGHT) / 2;
+        coords->game_speed = 0;
+        coords->ball_velocity_x = -BALL_SPEED_X;
+        coords->ball_velocity_y = BALL_SPEED_Y;
 
-        coords->right_paddle_x = fb_width() - 30 - PADDLE_WIDTH;
-        coords->right_paddle_y = (fb_height() - PADDLE_HEIGHT) / 2;
     }
 
-    // Increase game speed after every 5 points
-    if (coords->score_left && coords->score_right && ((coords->score_left + coords->score_right) % 5 == 0))
-    {
-        coords->game_speed++;
-        // Adjust ball speed based on game speed
-        coords->ball_velocity_x = BALL_SPEED_X + coords->game_speed;
-        coords->ball_velocity_y = BALL_SPEED_Y + coords->game_speed;
+    // Check if either player has won
+    if (coords->score_left >= 5 || coords->score_right >= 5) {
+        char winner = (coords->score_left >= 5) ? 'L' : 'R';
+        coords->game_over = 1;
+        end_game(winner);
     }
+}
+
+void end_game(char winner) {
+    int fb_width = fb_get_width();
+    int fb_height = fb_get_height();
+    // fb_clear_screen(0);
+
+    char end_text[50];
+    sprintf(end_text, "Game Over - %s Player Wins", (winner == 'L') ? "Left" : "Right");
+    draw_text((fb_width - strlen(end_text) * 9) / 2, fb_height / 2, end_text, 0xFFFFFF);
+    nb_delay(10);
+    syscall_framebuffer_push();
+    delay(50000);  // Display end screen for 5 seconds
+    sys_set_game_active(0);
+    return;
 }
 
 void handle_game_input(GameCoordinates *coords)
@@ -150,7 +182,7 @@ void handle_game_input(GameCoordinates *coords)
     // printf("kb_key_state checked: %d %d %d %d\n", left_paddle_up, left_paddle_down, right_paddle_up, right_paddle_down);
 
     // Handle left paddle movement
-    if (left_paddle_up && coords->left_paddle_y > 0)
+    if (left_paddle_up && coords->left_paddle_y > 30)
     {
         coords->left_paddle_y -= PADDLE_SPEED;
     }
@@ -160,7 +192,7 @@ void handle_game_input(GameCoordinates *coords)
     }
 
     // Handle right paddle movement
-    if (right_paddle_up && coords->right_paddle_y > 0)
+    if (right_paddle_up && coords->right_paddle_y > 30)
     {
         coords->right_paddle_y -= PADDLE_SPEED;
     }
@@ -174,6 +206,14 @@ void render_game(GameCoordinates coords)
 {
     // Font myFont;
     // init_font(&myFont);
+    int screen_width = fb_get_width();
+    char left_score_text[30];
+    char right_score_text[30];
+
+    // Generate text for left and right player scores
+    sprintf(left_score_text, "Left Player: %d", coords.score_left);
+    sprintf(right_score_text, "Right Player: %d", coords.score_right);
+
     int r = fb_clear_screen(30);
     if (r)
         printf("return value fb_clear_screen: %d\n", r);
@@ -181,14 +221,18 @@ void render_game(GameCoordinates coords)
     draw_paddle(coords.left_paddle_x, coords.left_paddle_y, PADDLE_WIDTH, PADDLE_HEIGHT, 0xFFFFFF);
     draw_paddle(coords.right_paddle_x, coords.right_paddle_y, PADDLE_WIDTH, PADDLE_HEIGHT, 0xFFFFFF);
     draw_ball(coords.ball_x, coords.ball_y, BALL_RADIUS, 0xFFFFFF); // Draw ball White color
-
+    fb_vline(0xFFFFFF, 0, 600, screen_width/2);
+    fb_hline(0xFFFFFF, 0, 800, 30);
     // Display scores
-    char score_text[50];
-    sprintf(score_text, "Left: %d Right: %d", coords.score_left, coords.score_right);
-    // sprintf(score_text, "A");
-    // printf("sctxt: %s\n",score_text);
-    // draw_text(&myFont, 10, 10, score_text, 0xFFFFFF);
-    draw_text(10, 10, score_text, 0xFFFFFF);
+    // char score_text[50];
+    // sprintf(score_text, "Left Player: %d Right Player: %d", coords.score_left, coords.score_right);
+    // // sprintf(score_text, "A");
+    // // printf("sctxt: %s\n",score_text);
+    // // draw_text(&myFont, 10, 10, score_text, 0xFFFFFF);
+    // draw_text(10, 10, score_text, 0xFFFFFF);
+    draw_text(10, 10, left_score_text, 0xFFFFFF);
+    int right_score_text_x = screen_width - (strlen(right_score_text) * 9 + 10); // Assuming each character takes 9 pixels in width
+    draw_text(right_score_text_x, 10, right_score_text, 0xFFFFFF);
 
     syscall_framebuffer_push(); // Update the display
 }
@@ -328,3 +372,4 @@ void draw_text(int x, int y, const char *text, int color)
 //         x += FONT_WIDTH;
 //     }
 // }
+//make clean && cd genromfs-0.5.2/ && gcc -O2 -Wall -DVERSION=\"0.5.2\" genromfs.c -c -o genromfs.o && cd .. && make

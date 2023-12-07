@@ -154,7 +154,7 @@ void interrupt_handler_c(void) {
 		}
 
 		if (!handled) {
-			printk("Unknown interrupt happened %x!\n",basic_pending);
+			// printk("Unknown interrupt happened %x!\n",basic_pending);
 			return;
 		}
 
