@@ -106,21 +106,27 @@ void update_game_state(GameCoordinates *coords)
         (coords->ball_y <= (coords->right_paddle_y + PADDLE_HEIGHT)))
     {
         coords->ball_velocity_x = -coords->ball_velocity_x;
-        printf("\tRP: %d\n",coords->ball_velocity_x);
+        printf("\tRP: %d\n", coords->ball_velocity_x);
     }
 
     // Check for scoring
     if (coords->ball_x < 0)
     {
         coords->score_right++;
-        coords->ball_x = fb_get_width() / 2;
-        coords->ball_y = fb_get_height() / 2;
+        coords->left_paddle_x = 30;
+        coords->left_paddle_y = (fb_height() - PADDLE_HEIGHT) / 2;
+
+        coords->right_paddle_x = fb_width() - 30 - PADDLE_WIDTH;
+        coords->right_paddle_y = (fb_height() - PADDLE_HEIGHT) / 2;
     }
     else if (coords->ball_x > fb_get_width())
     {
         coords->score_left++;
-        coords->ball_x = fb_get_width() / 2;
-        coords->ball_y = fb_get_height() / 2;
+        coords->left_paddle_x = 30;
+        coords->left_paddle_y = (fb_height() - PADDLE_HEIGHT) / 2;
+
+        coords->right_paddle_x = fb_width() - 30 - PADDLE_WIDTH;
+        coords->right_paddle_y = (fb_height() - PADDLE_HEIGHT) / 2;
     }
 
     // Increase game speed after every 5 points
@@ -131,10 +137,6 @@ void update_game_state(GameCoordinates *coords)
         coords->ball_velocity_x = BALL_SPEED_X + coords->game_speed;
         coords->ball_velocity_y = BALL_SPEED_Y + coords->game_speed;
     }
-
-    // Adjust ball speed based on game speed
-    // coords->ball_velocity_x = BALL_SPEED_X + coords->game_speed;
-    // // coords->ball_velocity_y = BALL_SPEED_Y * coords->game_speed;
 }
 
 void handle_game_input(GameCoordinates *coords)
