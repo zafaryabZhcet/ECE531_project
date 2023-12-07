@@ -12,7 +12,7 @@
 extern struct frame_buffer_info_type current_fb;
 
 #define PADDLE_SPEED 2
-#define BALL_SPEED_X 2
+#define BALL_SPEED_X 3
 #define BALL_SPEED_Y 1
 #define K_UP 0xa2
 #define K_DOWN 0xa3
