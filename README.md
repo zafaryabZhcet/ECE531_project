@@ -8,6 +8,8 @@
 - `userpace/shell.c`
 - `userspace/vlibc/syscalls.arm.c`: Added syscalls for Framebuffer and keyboard
 - `userspace/vlib/include/syscalls.h`: Added syscall numbers for framebuffer and keyboard
+- `userspace/vlibc/font.c`: had to include because of global variable restrictions
+- `userspace/vlibc/include/medieval_font.h`: had to include because of global variable restrictions
 
 - `genromfs-0.5.2/genromfs.c`
 

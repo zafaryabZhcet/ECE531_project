@@ -5,10 +5,10 @@ all:	vlibc.a
 
 vlibc.a:	start.o \
 		div.o error.o printf.o random.o stdio.o string.o system.o time.o tty.o \
-		vmwos.o syscalls.arm.o game.o
+		vmwos.o syscalls.arm.o game.o font.o
 	$(CROSS)$(AR) crsT vlibc.a start.o \
 		div.o error.o printf.o random.o stdio.o string.o system.o time.o tty.o \
-		vmwos.o syscalls.arm.o game.o
+		vmwos.o syscalls.arm.o game.o font.o
 
 start.o:	start.c
 	$(CROSS)$(CC) $(CFLAGS) -c start.c
@@ -45,6 +45,9 @@ vmwos.o:	vmwos.c
 
 syscalls.arm.o:	syscalls.arm.c
 	$(CROSS)$(CC) $(CFLAGS) -c syscalls.arm.c
+
+font.o:	font.c
+	$(CROSS)$(CC) $(CFLAGS) -c font.c
 
 game.o:	game.c
 	$(CROSS)$(CC) $(CFLAGS) -I../../kernel/include -c game.c

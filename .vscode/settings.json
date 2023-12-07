@@ -1,6 +1,7 @@
 {
     "files.associations": {
         "game.h": "c",
-        "framebuffer.h": "c"
+        "framebuffer.h": "c",
+        "c_font.h": "c"
     }
 }

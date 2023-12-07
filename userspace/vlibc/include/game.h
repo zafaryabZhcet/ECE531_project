@@ -34,4 +34,16 @@ void draw_paddle(int x, int y, int width, int height, int color);
 void draw_ball(int cx, int cy, int radius, int color);
 int is_esc_pressed();
 
+
+//Adjustments for font inclusion
+
+#define FONT_WIDTH 8
+#define FONT_HEIGHT 16
+
+typedef struct {
+    unsigned char data[256][FONT_HEIGHT];
+} Font;
+
+void init_font(Font *font);
+
 #endif // GAME_H

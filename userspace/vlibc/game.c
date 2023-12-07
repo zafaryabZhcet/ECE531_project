@@ -5,7 +5,7 @@
 #include "syscalls.h"
 #include <stdio.h>
 #include <stdint.h>
-#include "../../kernel/drivers/framebuffer/c_font.h"
+// #include "../../kernel/drivers/framebuffer/c_font.h"
 
 
 extern struct frame_buffer_info_type current_fb;
@@ -15,7 +15,6 @@ extern struct frame_buffer_info_type current_fb;
 #define BALL_SPEED_Y    1
 #define K_UP            0xa2
 #define K_DOWN          0xa3
-int  Y_COUNT = 0;
 
 GameCoordinates init_game(void) {
     GameCoordinates coords;
@@ -74,10 +73,9 @@ void start_game(void) {
 
 
 void update_game_state(GameCoordinates *coords) {
-    Y_COUNT+=1;
+ 
     // Move the ball
     coords->ball_x += coords->ball_velocity_x;
-    if (Y_COUNT%2 ==0)
     coords->ball_y += coords->ball_velocity_y;
 
     // Collision with top and bottom
@@ -146,6 +144,8 @@ void handle_game_input(GameCoordinates *coords) {
 
 void render_game(GameCoordinates coords)
 {
+    Font myFont;
+    init_font(&myFont);
     int r=fb_clear_screen(30);
     if (r)
         printf("return value fb_clear_screen: %d\n", r);
@@ -159,7 +159,7 @@ void render_game(GameCoordinates coords)
     sprintf(score_text, "Left: %d Right: %d", coords.score_left, coords.score_right);
     // sprintf(score_text,"A");
     // printf("sctxt: %s\n",score_text);
-    draw_text(10, 10, score_text, 0xFFFFFF); 
+    draw_text(&myFont, 10, 10, score_text, 0xFFFFFF); 
 
     syscall_framebuffer_push(); // Update the display
 }
@@ -226,7 +226,7 @@ void nb_delay(int millisecs){
 
 
 
-void draw_text(int x, int y, const char* text, int color) {
+void draw_text(Font *font, int x, int y, const char* text, int color) {
     int orig_x = x;
     for (int i = 0; text[i] != '\0'; i++) {
         if (text[i] == '\n') {
@@ -234,17 +234,18 @@ void draw_text(int x, int y, const char* text, int color) {
             x = orig_x;  // Reset to original X position
             continue;
         }
-        // uint8_t txt = text[i];
+        uint8_t txt = text[i];
         for (int row = 0; row < 16; row++) {
-            printf("I am in draw_text row loop\n");
-             unsigned char character_row = 0xff;
-            // unsigned char character_row = default_font[text[i] * 16 + row];
-            // unsigned char character_row = default_font[256*row + text[i]];
-            // unsigned char character_row = default_font[txt][row];
+            // printf("I am in draw_text row loop\n");
+            //  unsigned char character_row = 0xAA;     //works fine
+            unsigned char character_row = default_font[text[i] * 16 + row];
+
+            // unsigned char character_row = default_font[256*row + text[i]];   //works but is a wrong logic
+            // unsigned char character_row = default_font[txt][row];    //gives permission access error
             // printf("CR: %x\n", character_row);
             for (int col = 0; col < 8; col++) {
                 if (character_row & (1 << (7 - col))) {
-                    printf("just above draw_text putpixel");
+                    // printf("just above draw_text putpixel\n");
                     fb_putpixel(color, x + col, y + row);
                 }
             }
@@ -252,3 +253,23 @@ void draw_text(int x, int y, const char* text, int color) {
         x += 9;  // Move X to the next character position
     }
 }
+
+// void draw_text(Font *font, int x, int y, const char* text, int color) {
+//     for (int i = 0; text[i] != '\0'; i++) {
+//         if (text[i] == '\n') {
+//             y += FONT_HEIGHT;
+//             x = 0;
+//             continue;
+//         }
+
+//         for (int row = 0; row < FONT_HEIGHT; row++) {
+//             unsigned char character_row = font->data[(unsigned char)text[i]][row];
+//             for (int col = 0; col < FONT_WIDTH; col++) {
+//                 if (character_row & (1 << (7 - col))) {
+//                     fb_putpixel(color, x + col, y + row);
+//                 }
+//             }
+//         }
+//         x += FONT_WIDTH;
+//     }
+// }
