@@ -252,6 +252,11 @@ uint32_t swi_handler_c(
 				printk("Error handling push : %d\n", result);
 			}
 			break;
+		
+		case SYSCALL_FB_CONSOLE_DRAW_TEXT:
+			framebuffer_console_draw_text(r0, r1, (const char*)r2, r3);
+			break;
+			
 		case SYSCALL_FB_GET_WIDTH:
             return current_fb.phys_x;
 			break;

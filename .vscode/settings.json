@@ -2,6 +2,8 @@
     "files.associations": {
         "game.h": "c",
         "framebuffer.h": "c",
-        "c_font.h": "c"
+        "c_font.h": "c",
+        "memset.h": "c",
+        "medieval_font.h": "c"
     }
 }

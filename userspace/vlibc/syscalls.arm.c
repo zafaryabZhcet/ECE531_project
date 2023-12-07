@@ -479,6 +479,23 @@ int syscall_framebuffer_push(void) {
 	return 0;
 }
 
+void fbc_draw_text(int x, int y, const char *text, int color) {
+    register long r7 __asm__("r7") = __NR_FB_CONSOLE_DRAW_TEXT;
+    register long r0 __asm__("r0") = x;
+    register long r1 __asm__("r1") = y;
+    register long r2 __asm__("r2") = (long)text;
+    register long r3 __asm__("r3") = color;
+
+    asm volatile(
+        "svc #0\n"
+        : "=r"(r0)   // output
+        : "r"(r7), "r"(r0), "r"(r1), "r"(r2), "r"(r3)   // input
+        : "memory"
+    );
+    return r0;
+}
+
+
 int fb_get_width() {
 	// printf("Welcome to fb_get_width\n");
     register long r7 __asm__("r7") = __NR_FB_GET_WIDTH;

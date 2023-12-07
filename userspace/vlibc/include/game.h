@@ -33,6 +33,7 @@ void render_game(GameCoordinates);
 void draw_paddle(int x, int y, int width, int height, int color);
 void draw_ball(int cx, int cy, int radius, int color);
 int is_esc_pressed();
+void draw_text(int x, int y, const char *text, int color);
 
 
 //Adjustments for font inclusion

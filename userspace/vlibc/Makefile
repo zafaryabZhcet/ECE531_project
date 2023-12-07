@@ -43,11 +43,11 @@ tty.o:	tty.c
 vmwos.o:	vmwos.c
 	$(CROSS)$(CC) $(CFLAGS) -c vmwos.c
 
-syscalls.arm.o:	syscalls.arm.c
-	$(CROSS)$(CC) $(CFLAGS) -c syscalls.arm.c
-
 font.o:	font.c
 	$(CROSS)$(CC) $(CFLAGS) -c font.c
+
+syscalls.arm.o:	syscalls.arm.c
+	$(CROSS)$(CC) $(CFLAGS) -c syscalls.arm.c
 
 game.o:	game.c
 	$(CROSS)$(CC) $(CFLAGS) -I../../kernel/include -c game.c

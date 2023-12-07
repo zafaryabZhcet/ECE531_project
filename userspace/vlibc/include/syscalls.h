@@ -250,11 +250,14 @@ int statfs(const char *path, struct statfs *buf);
 #define __NR_FB_VLINE        	8302
 #define __NR_FB_CLEAR        	8303
 #define __NR_FB_PUSH			8304
+#define __NR_FB_CONSOLE_DRAW_TEXT	8305
 int syscall_framebuffer_push(void);
 int fb_clear_screen(int color);
 int fb_putpixel(int color, int x, int y);
 int fb_vline(int color, int y0, int y1, int x);
 int fb_hline(int color, int x0, int x1, int y);
+void fbc_draw_text(int x, int y, const char* text, int color);
+
 
 // New syscalls for framebuffer information
 #define __NR_FB_GET_WIDTH  		8400

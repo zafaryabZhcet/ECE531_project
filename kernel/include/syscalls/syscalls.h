@@ -48,6 +48,7 @@
 #define SYSCALL_FB_VLINE        8302
 #define SYSCALL_FB_CLEAR        8303
 #define SYSCALL_FB_PUSH			8304
+#define SYSCALL_FB_CONSOLE_DRAW_TEXT  8305
 
 // New syscalls for framebuffer information
 #define SYSCALL_FB_GET_WIDTH    8400

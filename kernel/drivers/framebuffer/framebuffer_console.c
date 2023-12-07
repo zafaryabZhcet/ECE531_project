@@ -428,3 +428,18 @@ int framebuffer_console_init(void) {
 	return 0;
 }
 
+void framebuffer_console_draw_text(int x, int y, const char* text, int color) {
+    if (!text) return;
+
+    int startX = x;
+    for (int i = 0; text[i] != '\0'; i++) {
+        if (text[i] == '\n') {
+            y += 18;  
+            x = startX; 
+            continue;
+        }
+
+        framebuffer_console_putchar(color, 0, text[i], x, y);
+        x += 9;
+    }
+}
