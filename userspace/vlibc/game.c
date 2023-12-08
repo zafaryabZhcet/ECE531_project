@@ -265,11 +265,11 @@ void plot_circle_lines(int cx, int cy, int x, int y, int color)
     fb_hline(color, cx - x, cx + x, cy - y); // Draw line in lower hemisphere
 }
 
-void draw_ball(int cx, int cy, int radius, int color)
+void draw_ball(int cx, int cy, int radius, int color)   
 {
     int x = 0, y = radius, p = (5 - radius * 4) / 4;
     plot_circle_points(cx, cy, x, y, color);
-
+    // Bresenham's circle algo
     while (x < y)
     {
         x++;
