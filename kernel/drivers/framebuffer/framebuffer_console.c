@@ -428,6 +428,7 @@ int framebuffer_console_init(void) {
 	return 0;
 }
 
+//added for game logic
 void framebuffer_console_draw_text(int x, int y, const char* text, int color) {
     if (!text) return;
 
