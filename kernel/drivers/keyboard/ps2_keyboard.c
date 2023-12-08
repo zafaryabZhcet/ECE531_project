@@ -1,7 +1,7 @@
 /*
  * ps2-keyboard.c -- vmwOS driver for ps2pi PS/2 keyboard/GPIO device
  *	by Vince Weaver <vincent.weaver _at_ maine.edu>
- * Added is_esc_pressed() and few lines for game logic
+ * Added is_esc_pressed() and game active logic, key state update logic few lines for game logic
  */
 
 #include <stdint.h>
