@@ -283,6 +283,10 @@ uint32_t swi_handler_c(
 
 		case SYSCALL_SET_GAME_ACTIVE:
 			return set_game_active(r0);
+		
+		/*********************/
+		/* GAME SPECIFIC END */
+		/*********************/
 
 		
 #if 0

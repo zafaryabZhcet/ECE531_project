@@ -6,14 +6,14 @@
 - `userspace/vlib/include/game.h`
 - `userspace/vlibc/Makefile`
 - `userpace/shell.c`: Added "game command"
-- `userspace/vlibc/syscalls.arm.c`: Added syscalls for Framebuffer and keyboard
-- `userspace/vlib/include/syscalls.h`: Added syscall numbers for framebuffer and keyboard
+- `userspace/vlibc/syscalls.arm.c`: Added syscalls for Framebuffer and keyboard and framebuffer console.
+- `userspace/vlib/include/syscalls.h`: Added syscall numbers for framebuffer and keyboard and framebuffer console.
 - `userspace/vlibc/font.c`: had to include because of global variable restrictions. But didn't work
 - `userspace/vlibc/include/medieval_font.h`: had to include because of global variable restrictions. But didn't work
 
 - `genromfs-0.5.2/genromfs.c`
 
-- `kernel/include/syscalls/syscalls.h`: Added syscall numbers for framebuffer and keyboard
+- `kernel/include/syscalls/syscalls.h`: Added syscall numbers for framebuffer and keyboard and framebuffer console.
 - `kernel/syscalls/syscalls.c`: Added syscalls for Framebuffer and keyboard and framebuffer console.
 - `kernel/drivers/framebuffer/framebuffer.c`: Added gradient code
 - `kernel/include/drivers/framebuffer/framebuffer.h`

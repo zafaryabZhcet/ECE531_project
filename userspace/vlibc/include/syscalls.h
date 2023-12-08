@@ -243,6 +243,9 @@ struct statfs {
 int statfs(const char *path, struct statfs *buf);
 
 
+		/******************/
+		/* GAME SPECIFIC */
+		/******************/
 
 // Added these definitions for game specific
 #define __NR_FB_PUTPIXEL     	8300
@@ -259,6 +262,7 @@ int fb_hline(int color, int x0, int x1, int y);
 void fbc_draw_text(int x, int y, const char* text, int color);
 
 
+		
 // New syscalls for framebuffer information
 #define __NR_FB_GET_WIDTH  		8400
 #define __NR_FB_GET_HEIGHT 		8401

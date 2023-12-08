@@ -42,6 +42,11 @@
 #define SYSCALL_MALLOC		8201	/* hack */
 
 
+
+/********************
+ * Syscalls for game
+ * ******************
+*/
 // Added these to existing syscall numbers to use framebuffer for game in userspace
 #define SYSCALL_FB_PUTPIXEL     8300
 #define SYSCALL_FB_HLINE        8301

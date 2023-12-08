@@ -397,6 +397,10 @@ int statfs(const char *path, struct statfs *buf) {
 	return r0;
 }
 
+		/******************/
+		/* GAME SPECIFIC */
+		/******************/
+
 // Code added for game
 int fb_hline(int color, int x0, int x1, int y) {
 	// printf("Welcome to fb_hline\n");
