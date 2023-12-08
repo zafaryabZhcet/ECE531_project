@@ -196,9 +196,9 @@ static int parse_input(char *string) {
 	else if (strlen(string)==0) {
 		/* do nothing */
 	}
-	else if (!strncmp(string, "game", 4)) {
-		printf("\n\r\033[2J");
-		printf("Welcome to game\n\n");
+	else if (!strncmp(string, "game", 4)) {						/******************/
+		printf("\n\r\033[2J");			//clear screen			/* GAME SPECIFIC */
+		printf("Welcome to game\n\n");							/******************/
         start_game();
     }
 	else {
