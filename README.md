@@ -22,3 +22,4 @@
 - `kernel/drivers/driver.c`: Added keyboard as default call
 - `kernel/interrupts/interrupts.c`: Added custom interrupt check for keyboard
 - `kernel/syscalls/times.c`: included sys_get_current_time()
+- `kernel/drivers/framebuffer/framebuffer_console.c`: Added draw_text support
